@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+
+import HomeScreen from './src/screens/HomeScreen';
 
 const fetchFonts = () => {
     return Font.loadAsync({
@@ -11,6 +15,8 @@ const fetchFonts = () => {
     });
 };
 
+const Stack = createStackNavigator();
+
 export default function App() {
     const [assetsLoaded, setAssetsLoaded] = useState(false);
 
@@ -18,6 +24,14 @@ export default function App() {
         // TODO: Modify AppLoading screen
         return <AppLoading startAsync={fetchFonts} onFinish={() => setAssetsLoaded(true)} />
     }
+
+    return (
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName="Home" headerMode="none">
+                <Stack.Screen name="Home" component={HomeScreen} />
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
 }
 
 const styles = StyleSheet.create({
