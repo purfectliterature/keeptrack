@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, TouchableHighlight } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -13,10 +13,6 @@ export default (props) => {
     const { location, checkedIn, lastVisited, url } = props.item;
 
     const handleCheckInOut = () => {
-        alert("");
-    };
-
-    const handleMenuDialog = () => {
         alert("");
     };
 
@@ -41,7 +37,7 @@ export default (props) => {
             underlayColor={Colors.black}
             activeOpacity={0.95}
             onPress={handleCheckInOut}
-            onLongPress={handleMenuDialog}
+            onLongPress={props.onLongPress}
         ><View style={styles.listItem}>
             <View style={styles.leftFragment}>
                 <InterText flavor="medium" size={17} numberOfLines={1}>{location}</InterText>
@@ -71,7 +67,7 @@ const styles = StyleSheet.create({
     },
 
     rightFragment: {
-        flex: 0.2,
+        width: 45,
         flexDirection: "row",
         //backgroundColor: "red",
         justifyContent: "flex-end",

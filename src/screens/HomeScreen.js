@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, SectionList } from "react-native";
 
 import Colors from "../constants/colors";
@@ -10,14 +10,23 @@ import Header from "../components/Header";
 import TextBox from "../components/TextBox";
 import ListItem from "../components/ListItem";
 import InterText from '../components/InterText';
+import LocationModal from "../components/LocationModal";
 
 export default (props) => {
+    const [locationMenuItem, setLocationMenuItem] = useState({ });
+    const [locationMenuVisible, setLocationMenuVisible] = useState(false);
+
+    const handleLocationMenu = (item) => {
+        setLocationMenuItem(item);
+        setLocationMenuVisible(true);
+    };
+
     const renderListSectionHeader = ({ section: { title } }) => (
         <InterText flavor="semibold" size={15} style={styles.listSectionHeader}>{title}</InterText>
     );
 
     const renderListItem = ({ item, index, section, separators }) => (
-        <ListItem item={item} />
+        <ListItem item={item} onLongPress={() => handleLocationMenu(item)} />
     );
 
     const sampleSectionedData = (data) => {
@@ -46,6 +55,8 @@ export default (props) => {
     return (
         <View style={styles.screen}>
             <Header title={Strings.appName} />
+
+            <LocationModal visible={locationMenuVisible} item={locationMenuItem} onTouchOutside={() => setLocationMenuVisible(false)}/>
 
             <View style={styles.container}>
                 <TextBox placeholder={Strings.searchHere} style={styles.searchBox} />

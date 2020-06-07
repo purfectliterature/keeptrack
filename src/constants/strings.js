@@ -4,5 +4,9 @@ export default {
     checkedIn: "Checked in",
     checkedInPlaces: "Checked in places",
     lastVisited: "Last visited",
-    yourLocations: "Your locations"
+    yourLocations: "Your locations",
+    openURL: "Open SafeEntry URL",
+    rescanQR: "Rescan QR code",
+    rename: "Rename",
+    deleteLocation: "Delete location"
 };
