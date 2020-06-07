@@ -6,6 +6,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import HomeScreen from './src/screens/HomeScreen';
 import ScanScreen from './src/screens/ScanScreen';
+import SettingsScreen from './src/screens/SettingsScreen';
 
 const fetchFonts = () => {
     return Font.loadAsync({
@@ -31,6 +32,7 @@ export default function App() {
             <Stack.Navigator initialRouteName="Home" headerMode="none">
                 <Stack.Screen name="Home" component={HomeScreen} />
                 <Stack.Screen name="Scan" component={ScanScreen} />
+                <Stack.Screen name="Settings" component={SettingsScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );
