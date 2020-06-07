@@ -1,12 +1,23 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import * as Font from "expo-font";
+import { AppLoading } from "expo";
+
+const fetchFonts = () => {
+    return Font.loadAsync({
+        "inter": require("./assets/fonts/Inter-Regular.otf"),
+        "inter-bold": require("./assets/fonts/Inter-Bold.otf"),
+        "inter-semibold": require("./assets/fonts/Inter-SemiBold.otf"),
+        "inter-medium": require("./assets/fonts/Inter-Medium.otf")
+    });
+};
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  );
+    const [assetsLoaded, setAssetsLoaded] = useState(false);
+
+    if (!assetsLoaded) {
+        // TODO: Modify AppLoading screen
+        return <AppLoading startAsync={fetchFonts} onFinish={() => setAssetsLoaded(true)} />
+    }
 }
 
 const styles = StyleSheet.create({
