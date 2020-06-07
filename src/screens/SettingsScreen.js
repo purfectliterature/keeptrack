@@ -5,10 +5,12 @@ import Colors from "../constants/colors";
 import Dimens from "../constants/dimens";
 import Strings from "../constants/strings";
 
+import Header from "../components/Header";
+
 export default (props) => {
     return (
         <View style={styles.screen}>
-
+            <Header title="Settings" />
         </View>
     );
 };
