@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity, TouchableNativeFeedback } from "react-native";
+import { StyleSheet, View, TouchableHighlight } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -8,7 +8,6 @@ import Dimens from "../constants/dimens";
 import Strings from "../constants/strings";
 
 import InterText from "./InterText";
-import { TouchableHighlight } from 'react-native-gesture-handler';
 
 export default (props) => {
     const { location, checkedIn, lastVisited, url } = props.item;
