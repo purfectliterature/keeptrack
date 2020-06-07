@@ -23,9 +23,9 @@ export default (props) => {
 
     const renderSubcaption = () => {
         if (checkedIn) {
-            return <InterText color={Colors.secondaryLighter} size={16} numberOfLines={1}>{Strings.checkedIn}</InterText>
+            return <InterText color={Colors.secondaryLighter} size={15} numberOfLines={1}>{Strings.checkedIn}</InterText>
         } else {
-            return <InterText color={Colors.grey3} size={16} numberOfLines={1}>{`${Strings.lastVisited} ${lastVisited}`}</InterText>
+            return <InterText color={Colors.grey3} size={15} numberOfLines={1}>{`${Strings.lastVisited} ${lastVisited}`}</InterText>
         }
     };
     
@@ -45,7 +45,7 @@ export default (props) => {
             onLongPress={handleMenuDialog}
         ><View style={styles.listItem}>
             <View style={styles.leftFragment}>
-                <InterText flavor="medium" size={Dimens.fontSizeLarge} numberOfLines={1}>{location}</InterText>
+                <InterText flavor="medium" size={17} numberOfLines={1}>{location}</InterText>
                 {renderSubcaption()}
             </View>
 

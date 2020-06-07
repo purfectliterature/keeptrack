@@ -13,7 +13,7 @@ import InterText from '../components/InterText';
 
 export default (props) => {
     const renderListSectionHeader = ({ section: { title } }) => (
-        <InterText flavor="medium" size={15} style={styles.listSectionHeader}>{title}</InterText>
+        <InterText flavor="semibold" size={15} style={styles.listSectionHeader}>{title}</InterText>
     );
 
     const renderListItem = ({ item, index, section, separators }) => (
