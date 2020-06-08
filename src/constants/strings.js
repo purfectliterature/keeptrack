@@ -28,7 +28,7 @@ export default {
     submitAFeedback: "Submit a feedback",
     emailMe: "Send an email to the author",
     settings: "Settings",
-    areYouSureToDeleteAllLOocations: "Sure you want to erase all locations?",
+    areYouSureToDeleteAllLocations: "Sure you want to erase all locations?",
     onceDeletedCannotUndo: "Once the locations are deleted, they cannot be retrieved ever again.",
     delete: "Delete",
     cancel: "Cancel",

@@ -98,7 +98,7 @@ export default (props) => {
             <Prompt
                 visible={deleteLocationsPromptVisible}
                 dismissMe={() => setDeleteLocationsPromptVisible(false)}
-                title={Strings.areYouSureToDeleteAllLOocations}
+                title={Strings.areYouSureToDeleteAllLocations}
                 message={Strings.onceDeletedCannotUndo}
                 onYes={() => {
                     dispatch(resetLocations());
