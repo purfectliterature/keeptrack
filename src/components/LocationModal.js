@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Dimensions, FlatList, TouchableHighlight } from "react-native";
 import Modal, { ModalContent } from "react-native-modals";
 import Icon from "react-native-vector-icons/MaterialIcons";
@@ -10,6 +10,7 @@ import Dimens from "../constants/dimens";
 import Strings from "../constants/strings";
 
 import InterText from "./InterText";
+import InputPrompt from "./InputPrompt";
 
 import {
     pinLocation,
@@ -28,6 +29,8 @@ export default (props) => {
         rootDispatch(actionCreator);
         props.dismissMe();
     }
+
+    const [renameInputPromptVisible, setRenameInputPromptVisible] = useState(false);
 
     const menu = [
         {
@@ -67,7 +70,7 @@ export default (props) => {
         {
             id: "rename",
             caption: Strings.rename,
-            onPress: () => alert("hello"),
+            onPress: () => setRenameInputPromptVisible(true),
             icon: <Icon name="create" size={Dimens.glyphSize} />
         },
         {
@@ -118,6 +121,13 @@ export default (props) => {
         }
     };
 
+    const handleRenameLocation = (newLocationName) => {
+        if (newLocationName !== "") {
+            dispatch(renameLocation(id, newLocationName));
+        }
+        setRenameInputPromptVisible(false)
+    };
+
     return (
         <Modal
             visible={props.visible}
@@ -142,6 +152,18 @@ export default (props) => {
                 <FlatList
                     data={menu}
                     renderItem={renderMenuItem}
+                />
+
+                <InputPrompt
+                    visible={renameInputPromptVisible}
+                    dismissMe={() => setRenameInputPromptVisible(false)}
+                    title="Rename location"
+                    yesCaption="Rename"
+                    yesColor={Colors.primary}
+                    noCaption={Strings.cancel}
+                    placeholder={location}
+                    onSubmit={handleRenameLocation}
+                    onNo={() => setRenameInputPromptVisible(false)}
                 />
             </ModalContent>
         </Modal>
