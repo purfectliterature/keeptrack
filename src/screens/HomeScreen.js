@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, SectionList } from "react-native";
+import { StyleSheet, View, SectionList, Button } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
 import Colors from "../constants/colors";
 import Dimens from "../constants/dimens";
@@ -12,9 +13,19 @@ import ListItem from "../components/ListItem";
 import InterText from '../components/InterText';
 import LocationModal from "../components/LocationModal";
 
+import {
+    getCheckedInLocations,
+    getPinnedNotCheckedInLocations,
+    getNotPinnedNotCheckedInLocations,
+    addLocation,
+    getLocations
+} from "../store/locations";
+
 export default (props) => {
     const [locationMenuItem, setLocationMenuItem] = useState({ });
     const [locationMenuVisible, setLocationMenuVisible] = useState(false);
+
+    const dispatch = useDispatch();
 
     const handleLocationMenu = (item) => {
         setLocationMenuItem(item);
@@ -63,6 +74,40 @@ export default (props) => {
         return arrayToDisplay;
     };
 
+    const fetchLocations = () => {
+        const checkedInLocations = useSelector(getCheckedInLocations);
+        const pinnedLocations = useSelector(getPinnedNotCheckedInLocations);
+        const otherLocations = useSelector(getNotPinnedNotCheckedInLocations);
+        const arrayToDisplay = [];
+
+        if (checkedInLocations.length > 0) {
+            arrayToDisplay.push({
+                title: Strings.checkedInPlaces,
+                data: checkedInLocations
+            });
+        }
+        
+        if (pinnedLocations.length > 0) {
+            arrayToDisplay.push({
+                title: Strings.pinnedLocations,
+                data: pinnedLocations
+            });
+        }
+
+        if (otherLocations.length > 0) {
+            arrayToDisplay.push({
+                title: Strings.yourLocations,
+                data: otherLocations
+            });
+        }
+
+        return arrayToDisplay;
+    };
+
+    const addClementiMall = () => {
+        dispatch(addLocation("Clementi Mall Test", "aksfj", false));
+    };
+
     return (
         <View style={styles.screen}>
             <Header title={Strings.appName} />
@@ -72,8 +117,10 @@ export default (props) => {
             <View style={styles.container}>
                 <TextBox placeholder={Strings.searchHere} style={styles.searchBox} />
 
+                <Button title="Hello" onPress={addClementiMall} />
+
                 <SectionList
-                    sections={sectionData(data)}
+                    sections={fetchLocations()}
                     keyExtractor={item => item.id.toString()}
                     renderItem={renderListItem}
                     renderSectionHeader={renderListSectionHeader}

@@ -6,6 +6,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 
 import Colors from "./src/constants/colors";
 import Dimens from "./src/constants/dimens";
@@ -15,6 +17,8 @@ import ScanScreen from './src/screens/ScanScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 import InterText from './src/components/InterText';
 
+import configureStore from "./src/store/configureStore";
+
 const fetchFonts = () => {
     return Font.loadAsync({
         "inter": require("./assets/fonts/Inter-Regular.otf"),
@@ -23,6 +27,8 @@ const fetchFonts = () => {
         "inter-medium": require("./assets/fonts/Inter-Medium.otf")
     });
 };
+
+const { store, persistor } = configureStore();
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -82,17 +88,24 @@ export default function App() {
         return <AppLoading startAsync={fetchFonts} onFinish={() => setAssetsLoaded(true)} />
     }
 
+    <PersistGate loading={null} persistor={persistor}></PersistGate>
+
     return (
-        <NavigationContainer>
-            <Tab.Navigator
-                screenOptions={screenOptions}
-                tabBarOptions={tabBarOptions}
-                backBehavior="none"
-            >
-                <Tab.Screen name="Home" component={HomeScreen} />
-                <Tab.Screen name="Scan" component={ScanScreen} />
-                <Tab.Screen name="Settings" component={SettingsScreen} />
-            </Tab.Navigator>
-        </NavigationContainer>
+        <Provider store={store}>
+            
+                <NavigationContainer>
+                    <Tab.Navigator
+                        screenOptions={screenOptions}
+                        tabBarOptions={tabBarOptions}
+                        backBehavior="none"
+                    >
+                        <Tab.Screen name="Home" component={HomeScreen} />
+                        <Tab.Screen name="Scan" component={ScanScreen} />
+                        <Tab.Screen name="Settings" component={SettingsScreen} />
+                    </Tab.Navigator>
+                </NavigationContainer>
+            
+        </Provider>
+        
     );
 }
