@@ -19,6 +19,40 @@ import {
     getNotPinnedNotCheckedInLocations
 } from "../store/locations";
 
+const fetchLocations = () => {
+    const checkedInLocations = useSelector(getCheckedInLocations);
+    const pinnedLocations = useSelector(getPinnedNotCheckedInLocations);
+    const otherLocations = useSelector(getNotPinnedNotCheckedInLocations);
+    const arrayToDisplay = [];
+
+    if (checkedInLocations.length > 0) {
+        arrayToDisplay.push({
+            title: Strings.checkedInPlaces,
+            data: checkedInLocations
+        });
+    }
+    
+    if (pinnedLocations.length > 0) {
+        arrayToDisplay.push({
+            title: Strings.pinnedLocations,
+            data: pinnedLocations
+        });
+    }
+
+    if (otherLocations.length > 0) {
+        arrayToDisplay.push({
+            title: Strings.yourLocations,
+            data: otherLocations
+        });
+    }
+
+    return arrayToDisplay;
+};
+
+const renderListSectionHeader = ({ section: { title, data } }) => (
+    <InterText flavor="semibold" size={15} style={styles.listSectionHeader}>{`${title} (${data.length})`}</InterText>
+);
+
 export default (props) => {
     const [locationMenuItem, setLocationMenuItem] = useState({ });
     const [locationMenuVisible, setLocationMenuVisible] = useState(false);
@@ -28,43 +62,9 @@ export default (props) => {
         setLocationMenuVisible(true);
     };
 
-    const renderListSectionHeader = ({ section: { title } }) => (
-        <InterText flavor="semibold" size={15} style={styles.listSectionHeader}>{title}</InterText>
-    );
-
     const renderListItem = ({ item, index, section, separators }) => (
         <ListItem item={item} onLongPress={() => handleLocationMenu(item)} />
     );
-
-    const fetchLocations = () => {
-        const checkedInLocations = useSelector(getCheckedInLocations);
-        const pinnedLocations = useSelector(getPinnedNotCheckedInLocations);
-        const otherLocations = useSelector(getNotPinnedNotCheckedInLocations);
-        const arrayToDisplay = [];
-
-        if (checkedInLocations.length > 0) {
-            arrayToDisplay.push({
-                title: Strings.checkedInPlaces,
-                data: checkedInLocations
-            });
-        }
-        
-        if (pinnedLocations.length > 0) {
-            arrayToDisplay.push({
-                title: Strings.pinnedLocations,
-                data: pinnedLocations
-            });
-        }
-
-        if (otherLocations.length > 0) {
-            arrayToDisplay.push({
-                title: Strings.yourLocations,
-                data: otherLocations
-            });
-        }
-
-        return arrayToDisplay;
-    };
 
     return (
         <View style={styles.screen}>
