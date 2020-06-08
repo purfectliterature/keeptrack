@@ -42,14 +42,12 @@ export default (props) => {
             onLongPress={props.onLongPress}
         ><View style={styles.listItem}>
             <View style={styles.leftFragment}>
-                <View style={{flexDirection: "row", width: "100%"}}>
-                    <InterText flavor="medium" size={17} numberOfLines={1} style={{flex: 1}}>{location}</InterText>
-                    {pinned ? <Octicon name="pin" size={20} color={Colors.grey3} style={{marginLeft: 8}} /> : null}
-                </View>
+                <InterText flavor="medium" size={17} numberOfLines={1}>{location}</InterText>
                 {renderSubcaption()}
             </View>
 
             <View style={styles.rightFragment}>
+                {pinned ? <Octicon name="pin" size={20} color={Colors.grey3} style={{marginRight: 10}} /> : null}
                 {renderIcon()}
             </View>
         </View></TouchableHighlight>
@@ -72,7 +70,7 @@ const styles = StyleSheet.create({
     },
 
     rightFragment: {
-        width: 45,
+        marginLeft: 10,
         flexDirection: "row",
         //backgroundColor: "red",
         justifyContent: "flex-end",
