@@ -14,10 +14,6 @@ import InterText from "./InterText";
 export default (props) => {
     const { location, checkedIn, pinned, lastVisited, url } = props.item;
 
-    const handleCheckInOut = () => {
-        alert("");
-    };
-
     const renderSubcaption = () => {
         if (checkedIn) {
             return <InterText color={Colors.secondaryLighter} size={15} numberOfLines={1}>{Strings.checkedIn}</InterText>
@@ -38,7 +34,7 @@ export default (props) => {
         <TouchableHighlight
             underlayColor={Colors.black}
             activeOpacity={0.95}
-            onPress={handleCheckInOut}
+            onPress={props.onPress}
             onLongPress={props.onLongPress}
         ><View style={styles.listItem}>
             <View style={styles.leftFragment}>
