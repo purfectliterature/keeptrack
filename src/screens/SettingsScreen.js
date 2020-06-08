@@ -5,13 +5,15 @@ import { useDispatch } from "react-redux";
 import Colors from "../constants/colors";
 import Dimens from "../constants/dimens";
 import Strings from "../constants/strings";
+import { DemoData, DeveloperKey } from "../constants/demo-data";
 
 import Header from "../components/Header";
 import InterText from "../components/InterText";
 import Prompt from "../components/Prompt";
+import InputPrompt from "../components/InputPrompt";
 
 import {
-    resetLocations
+    resetLocations, addLocationObject, addLocation
 } from "../store/locations";
 
 const renderListItem = ({ item, index, section, separators }) => (
@@ -27,6 +29,10 @@ const renderListSectionHeader = ({ section: { title } }) => (
 export default (props) => {
     const dispatch = useDispatch();
     const [deleteLocationsPromptVisible, setDeleteLocationsPromptVisible] = useState(false);
+    const [developerKeyInputPromptVisible, setDeveloperKeyInputPromptVisible] = useState(false);
+    const [wrongDeveloperKeyPromptVisible, setWrongDeveloperKeyPromptVisible] = useState(false);
+    const [addCustomLocationInputPromptVisible, setAddCustomLocationInputPromptVisible] = useState(false);
+    const [nextDeveloperOption, setNextDeveloperOption] = useState(() => {});
 
     const settings = [
         {
@@ -65,12 +71,12 @@ export default (props) => {
                 {
                     id: "loadDemoData",
                     label: Strings.loadDemoData,
-                    onPress: () => alert("haha")
+                    onPress: () => handleLoadDemoDataPrompt()
                 },
                 {
                     id: "addCustomLocation",
                     label: Strings.addCustomLocation,
-                    onPress: () => alert("hahe")
+                    onPress: () => handleAddCustomLocationData()
                 }
             ]
         },
@@ -91,6 +97,30 @@ export default (props) => {
         }
     ];
 
+    const handleDeveloperKeySubmit = (developerKey) => {
+        setDeveloperKeyInputPromptVisible(false);
+        if (developerKey === DeveloperKey) {
+            nextDeveloperOption();
+        } else {
+            setWrongDeveloperKeyPromptVisible(true);
+        }
+    }
+
+    const handleLoadDemoDataPrompt = () => {
+        setNextDeveloperOption(() => () => DemoData.forEach(location => dispatch(addLocationObject(location))));
+        setDeveloperKeyInputPromptVisible(true);
+    }
+
+    const handleAddCustomLocationData = () => {
+        setNextDeveloperOption(() => () => setAddCustomLocationInputPromptVisible(true));
+        setDeveloperKeyInputPromptVisible(true);
+    }
+
+    const handleAddCustomLocation = (location) => {
+        dispatch(addLocation(location, "http://www.google.com", false, false));
+        setAddCustomLocationInputPromptVisible(false);
+    };
+
     return (
         <View style={styles.screen}>
             <Header title={Strings.settings} />
@@ -108,6 +138,39 @@ export default (props) => {
                 yesCaption={Strings.delete}
                 yesColor="red"
                 noCaption={Strings.cancel}
+            />
+
+            <InputPrompt
+                visible={developerKeyInputPromptVisible}
+                dismissMe={() => setDeveloperKeyInputPromptVisible(false)}
+                title="Please provide the developer key"
+                yesCaption="Submit"
+                yesColor={Colors.primary}
+                noCaption={Strings.cancel}
+                onNo={() => setDeveloperKeyInputPromptVisible(false)}
+                onSubmit={handleDeveloperKeySubmit}
+                placeholder="Developer key"
+                secureTextEntry={true}
+            />
+
+            <InputPrompt
+                visible={addCustomLocationInputPromptVisible}
+                dismissMe={() => setAddCustomLocationInputPromptVisible(false)}
+                title="Add custom location"
+                yesCaption="Add"
+                yesColor={Colors.primary}
+                noCaption={Strings.cancel}
+                onNo={() => setAddCustomLocationInputPromptVisible(false)}
+                onSubmit={handleAddCustomLocation}
+                placeholder="Location name"
+            />
+
+            <Prompt
+                visible={wrongDeveloperKeyPromptVisible}
+                dismissMe={() => setWrongDeveloperKeyPromptVisible(false)}
+                title="Sorry, wrong developer key"
+                yesCaption="Okay"
+                onYes={() => setWrongDeveloperKeyPromptVisible(false)}
             />
 
             <View style={styles.container}>
