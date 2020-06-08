@@ -80,7 +80,7 @@ export default (props) => {
 
                 <SectionList
                     sections={fetchLocations()}
-                    keyExtractor={item => item.id.toString()}
+                    keyExtractor={item => item.id}
                     renderItem={renderListItem}
                     renderSectionHeader={renderListSectionHeader}
                 />
