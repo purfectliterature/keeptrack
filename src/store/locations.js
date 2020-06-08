@@ -41,6 +41,12 @@ const slice = createSlice({
 
         locationDeleted: (locations, action) => {
             delete locations[action.payload.id];
+        },
+
+        locationsReset: (locations, action) => {
+            Object.keys(locations).forEach((item, index) => {
+                delete locations[item];
+            });
         }
     }
 });
@@ -53,7 +59,8 @@ const {
     locationCheckedOut,
     locationUrlUpdated,
     locationRenamed,
-    locationDeleted
+    locationDeleted,
+    locationsReset
 } = slice.actions;
 
 export default slice.reducer;
@@ -73,6 +80,7 @@ export const checkOutLocation = (id) => locationCheckedOut({ id });
 export const updateLocationUrl = (id, url) => locationUrlUpdated({ id, url });
 export const renameLocation = (id, newName) => locationRenamed({ id, newName });
 export const deleteLocation = (id) => locationDeleted({ id });
+export const resetLocations = () => locationsReset();
 
 export const getLocations = createSelector(
     state => state.locations,
