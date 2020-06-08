@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, TouchableHighlight } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import moment from "moment";
 
 import Colors from "../constants/colors";
 import Dimens from "../constants/dimens";
@@ -20,7 +21,7 @@ export default (props) => {
         if (checkedIn) {
             return <InterText color={Colors.secondaryLighter} size={15} numberOfLines={1}>{Strings.checkedIn}</InterText>
         } else {
-            return <InterText color={Colors.grey3} size={15} numberOfLines={1}>{`${Strings.lastVisited} ${lastVisited}`}</InterText>
+            return <InterText color={Colors.grey3} size={15} numberOfLines={1}>{`${Strings.lastVisited} ${moment(lastVisited).format("ddd MMM D, YYYY, H:m")}`}</InterText>
         }
     };
     

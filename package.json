@@ -17,6 +17,7 @@
     "expo-barcode-scanner": "~8.1.0",
     "expo-permissions": "^8.1.0",
     "expo-secure-store": "~8.1.0",
+    "moment": "^2.26.0",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz",
@@ -30,7 +31,8 @@
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
     "redux-persist": "^6.0.0",
-    "redux-persist-expo-securestore": "^2.0.0"
+    "redux-persist-expo-securestore": "^2.0.0",
+    "reselect": "^4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
