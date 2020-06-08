@@ -26,28 +26,40 @@ export default (props) => {
             })}
         >
             <ModalContent style={styles.content}>
-                <View style={styles.message}>
-                    <InterText size={17}>{props.message}</InterText>
-                </View>
+                {props.message ? 
+                    <View style={styles.message}>
+                        <InterText size={17}>{props.message}</InterText>
+                    </View>
+                : null}
 
                 <View style={styles.buttons}>
                     <TouchableHighlight
                         underlayColor={Colors.black}
                         activeOpacity={0.95}
                         onPress={props.onYes}
-                        style={{...styles.touchableButton, borderBottomLeftRadius: 15}}
-                    ><View style={{...styles.button, borderBottomLeftRadius: 15}}>
+                        style={{
+                            ...styles.touchableButton,
+                            borderBottomLeftRadius: 15,
+                            borderBottomRightRadius: props.noCaption ? 0 : 15
+                        }}
+                    ><View style={{
+                        ...styles.button,
+                        borderBottomLeftRadius: 15,
+                        borderBottomRightRadius: props.noCaption ? 0 : 15
+                    }}>
                         <InterText flavor="medium" size={17} color={props.yesColor ? props.yesColor : Colors.black}>{props.yesCaption}</InterText>
                     </View></TouchableHighlight>
 
-                    <TouchableHighlight
-                        underlayColor={Colors.black}
-                        activeOpacity={0.95}
-                        onPress={props.onNo}
-                        style={{...styles.touchableButton, borderBottomRightRadius: 15}}
-                    ><View style={{...styles.button, borderBottomRightRadius: 15}}>
-                        <InterText flavor="medium" size={17} color={props.noColor ? props.noColor : Colors.black}>{props.noCaption}</InterText>
-                    </View></TouchableHighlight>
+                    {props.noCaption ? 
+                        <TouchableHighlight
+                            underlayColor={Colors.black}
+                            activeOpacity={0.95}
+                            onPress={props.onNo}
+                            style={{...styles.touchableButton, borderBottomRightRadius: 15}}
+                        ><View style={{...styles.button, borderBottomRightRadius: 15}}>
+                            <InterText flavor="medium" size={17} color={props.noColor ? props.noColor : Colors.black}>{props.noCaption}</InterText>
+                        </View></TouchableHighlight>
+                    : null}
                 </View>
             </ModalContent>
         </Modal>
