@@ -112,7 +112,11 @@ export default (props) => {
         <View style={styles.screen}>
             <Header title={Strings.appName} />
 
-            <LocationModal visible={locationMenuVisible} item={locationMenuItem} onTouchOutside={() => setLocationMenuVisible(false)}/>
+            <LocationModal
+                visible={locationMenuVisible}
+                item={locationMenuItem}
+                dismissMe={() => setLocationMenuVisible(false)}
+            />
 
             <View style={styles.container}>
                 <TextBox placeholder={Strings.searchHere} style={styles.searchBox} />

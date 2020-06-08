@@ -11,7 +11,12 @@ import Strings from "../constants/strings";
 import InterText from "./InterText";
 
 export default (props) => {
-    const { location, checkedIn, pinned, lastVisited, url } = props.item;
+    const { id, location, checkedIn, pinned, lastVisited, url } = props.item;
+    const rootDispatch = useDispatch();
+    const dispatch = (actionCreator) => {
+        rootDispatch(actionCreator);
+        props.dismissMe();
+    }
 
     const menu = [
         {
@@ -119,7 +124,7 @@ export default (props) => {
                 </View>
             }
             width={Dimensions.get("window").width - 70}
-            onTouchOutside={props.onTouchOutside}
+            onTouchOutside={props.dismissMe}
             modalStyle={styles.modal}
         >
             <ModalContent style={styles.content}>
