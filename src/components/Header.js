@@ -9,17 +9,21 @@ export default (props) => {
     return (
         <SafeAreaView style={styles.safeAreaView}><View style={styles.header}>
             <StatusBar barStyle="dark-content" backgroundColor={"rgba(0,0,0,0)"} translucent={true} />
-            <View style={{...styles.fragment, flex: 0.25, justifyContent: "flex-start"}}>
-                
-            </View>
+            {props.renderLeftFragment ? 
+                <View style={{...styles.fragment, flex: 0.25, justifyContent: "flex-start"}}>
+                    {props.renderLeftFragment()}
+                </View>
+            : null}
 
-            <View style={{...styles.fragment, flex: 0.5, justifyContent: "center"}}>
+            <View style={{...styles.fragment, flex: 1, justifyContent: "center"}}>
                 <InterText flavor="semibold" size={Dimens.fontSizeLarge} numberOfLines={1}>{props.title}</InterText>
             </View>
-
-            <View style={{...styles.fragment, flex: 0.25, justifyContent: "flex-end"}}>
-                
-            </View>
+            
+            {props.renderRightFragment ? 
+                <View style={{...styles.fragment, flex: 0.25, justifyContent: "flex-end"}}>
+                    {props.renderRightFragment()}
+                </View>
+            : null}
         </View></SafeAreaView>
     );
 };
