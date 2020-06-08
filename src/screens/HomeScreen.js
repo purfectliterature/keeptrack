@@ -77,8 +77,6 @@ export default (props) => {
             />
 
             <View style={styles.container}>
-                <TextBox placeholder={Strings.searchHere} style={styles.searchBox} />
-
                 <SectionList
                     sections={fetchLocations()}
                     keyExtractor={item => item.id}
@@ -89,6 +87,12 @@ export default (props) => {
                             <Icon name="filter-center-focus" size={50} color={Colors.grey4} style={{marginBottom: 20}} />
                             <InterText flavor="medium" color={Colors.grey4} size={23} style={{textAlign: "center"}}>{Strings.scanToAddNewLocation}</InterText>
                         </View>
+                    }
+                    ListFooterComponent={
+                        <View style={{height: 100}} />
+                    }
+                    ListHeaderComponent={
+                        <TextBox placeholder={Strings.searchHere} style={styles.searchBox} />
                     }
                 />
             </View>
@@ -103,11 +107,11 @@ const styles = StyleSheet.create({
     },
 
     container: {
-        flex: 1,
-        paddingTop: 20
+        flex: 1
     },
 
     searchBox: {
+        marginTop: 20,
         marginHorizontal: 30
     },
 
