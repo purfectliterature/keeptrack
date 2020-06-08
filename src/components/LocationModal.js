@@ -11,7 +11,7 @@ import Strings from "../constants/strings";
 import InterText from "./InterText";
 
 export default (props) => {
-    const { location, checkedIn, lastVisited, url } = props.item;
+    const { location, checkedIn, pinned, lastVisited, url } = props.item;
 
     const menu = [
         {
@@ -29,12 +29,24 @@ export default (props) => {
         {
             id: "mark",
             toggled: true,
+            toggleCriteria: checkedIn,  // render 1 if false, 2 if true
             caption1: Strings.markCheckedIn,
             caption2: Strings.markCheckedOut,
             onPress1: () => alert("Check in"),
             onPress2: () => alert("Check out"),
             icon1: <Icon name="check" size={Dimens.glyphSize} />,
             icon2: <MaterialIcon name="exit-run" size={Dimens.glyphSize} />
+        },
+        {
+            id: "pin",
+            toggled: true,
+            toggleCriteria: pinned, // render 1 if false, 2 if true
+            caption1: Strings.pinLocation,
+            caption2: Strings.unpinLocation,
+            onPress1: () => alert("pin"),
+            onPress2: () => alert("unpin"),
+            icon1: <MaterialIcon name="pin" size={Dimens.glyphSize} />,
+            icon2: <MaterialIcon name="pin-off" size={Dimens.glyphSize} />
         },
         {
             id: "rename",
@@ -53,7 +65,7 @@ export default (props) => {
 
     const renderMenuItem = ({ item, index, separator }) => {
         if (item.toggled) {
-            if (checkedIn) {
+            if (item.toggleCriteria) {
                 return (
                     <TouchableHighlight 
                         underlayColor={Colors.black}

@@ -11,5 +11,7 @@ export default {
     rename: "Rename",
     deleteLocation: "Delete location",
     markCheckedIn: "Mark as checked in",
-    markCheckedOut: "Mark as checked out"
+    markCheckedOut: "Mark as checked out",
+    pinLocation: "Pin location",
+    unpinLocation: "Unpin location"
 };
