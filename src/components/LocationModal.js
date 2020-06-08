@@ -69,6 +69,7 @@ export default (props) => {
             }
             width={Dimensions.get("window").width - 70}
             onTouchOutside={props.onTouchOutside}
+            modalStyle={styles.modal}
         >
             <ModalContent style={styles.content}>
                 <FlatList
@@ -81,6 +82,21 @@ export default (props) => {
 };
 
 const styles = StyleSheet.create({
+    modal: {
+        borderRadius: 15,
+        backgroundColor: Colors.white,
+        overflow: "visible",
+        shadowColor: Colors.black,
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.4,
+        shadowRadius: 50.00,
+        
+        elevation: 40,
+    },
+
     header: {
         //backgroundColor: "red",
         flexDirection: "row",
