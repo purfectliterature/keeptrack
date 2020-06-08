@@ -100,7 +100,7 @@ export default (props) => {
                     </View>
 
                     {checkedIn ?
-                        <View style={{width: 100, flexDirection: "row", justifyContent: "flex-end"}}>
+                        <View style={{width: 40, flexDirection: "row", justifyContent: "flex-end", height: "100%"}}>
                             <Icon name="check" color={Colors.secondaryLighter} size={Dimens.glyphSize} />
                         </View>
                     : null}
