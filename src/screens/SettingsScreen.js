@@ -16,7 +16,7 @@ import {
 
 const renderListItem = ({ item, index, section, separators }) => (
     <TouchableHighlight activeOpacity={0.95} underlayColor={Colors.black} onPress={item.onPress}><View style={styles.menuItem}>
-        <InterText size={17}>{item.label}</InterText>
+        <InterText size={17} color={item.disabled ? Colors.grey4 : Colors.black} numberOfLines={1}>{item.label}</InterText>
     </View></TouchableHighlight>
 );
 
