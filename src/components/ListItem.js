@@ -10,7 +10,7 @@ import Strings from "../constants/strings";
 import InterText from "./InterText";
 
 export default (props) => {
-    const { location, checkedIn, lastVisited, url } = props.item;
+    const { location, checkedIn, pinned, lastVisited, url } = props.item;
 
     const handleCheckInOut = () => {
         alert("");
