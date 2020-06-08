@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, SectionList, Button } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 import Colors from "../constants/colors";
 import Dimens from "../constants/dimens";
@@ -83,6 +84,12 @@ export default (props) => {
                     keyExtractor={item => item.id}
                     renderItem={renderListItem}
                     renderSectionHeader={renderListSectionHeader}
+                    ListEmptyComponent={
+                        <View style={styles.emptyLocationsText}>
+                            <Icon name="filter-center-focus" size={50} color={Colors.grey4} style={{marginBottom: 20}} />
+                            <InterText flavor="medium" color={Colors.grey4} size={23} style={{textAlign: "center"}}>{Strings.scanToAddNewLocation}</InterText>
+                        </View>
+                    }
                 />
             </View>
         </View>
@@ -108,5 +115,12 @@ const styles = StyleSheet.create({
         marginTop: 15,
         marginBottom: 10,
         marginHorizontal: 30
+    },
+    
+    emptyLocationsText: {
+//        backgroundColor: "red",
+        marginHorizontal: 50,
+        marginTop: 40,
+        alignItems: "center"
     }
 });

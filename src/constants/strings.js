@@ -16,5 +16,6 @@ export default {
     unpinLocation: "Unpin location",
     youNeedToAllowPermission: "You need to grant access to your camera to enable QR code scanning.",
     cannotAccessCamera: "Where's your camera?",
-    grantAccess: "Grant access"
+    grantAccess: "Grant access",
+    scanToAddNewLocation: "Scan a SafeEntry QR code to add a new location"
 };
