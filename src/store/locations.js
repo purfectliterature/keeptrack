@@ -73,6 +73,8 @@ export const addLocation = (location, url, checkedIn, pinned) => locationAdded({
     lastVisited: Date.now()
 });
 
+export const addLocationObject = (locationObject) => locationAdded(locationObject);
+
 export const pinLocation = (id) => locationPinned({ id });
 export const unpinLocation = (id) => locationUnpinned({ id });
 export const checkInLocation = (id) => locationCheckedIn({ id });
