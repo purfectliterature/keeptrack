@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, SectionList } from "react-native";
-import * as Permissions from "expo-permissions";
+import { StyleSheet, View } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -22,7 +21,7 @@ export default (props) => {
     };
 
     // Wrap askForPermission() inside curly braces so that the Promise won't be returned
-    useEffect(() => { askForPermission() }, []);
+    useEffect(() => { askForPermission(); }, []);
 
     const handleBarCodeScan = ({ type, data }) => {
         setScanned(true);
