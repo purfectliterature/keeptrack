@@ -68,7 +68,8 @@ export default (props) => {
             location: item.location,
             url: item.url,
             id: item.id,
-            checkedIn: item.checkedIn
+            checkedIn: item.checkedIn,
+            handleCheckInOut: true
         });
     }
 
@@ -84,6 +85,7 @@ export default (props) => {
                 visible={locationMenuVisible}
                 item={locationMenuItem}
                 dismissMe={() => setLocationMenuVisible(false)}
+                navigator={props.navigation}
             />
 
             <View style={styles.container}>

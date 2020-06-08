@@ -20,11 +20,13 @@ export default (props) => {
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch();
 
-    const handleCheckInOut = () => {
-        if (params.checkedIn) {
-            dispatch(checkOutLocation(params.id));
-        } else {
-            dispatch(checkInLocation(params.id));
+    const handleDone = () => {
+        if (params.handleCheckInOut) {
+            if (params.checkedIn) {
+                dispatch(checkOutLocation(params.id));
+            } else {
+                dispatch(checkInLocation(params.id));
+            }
         }
         navigation.goBack()
     };
@@ -34,7 +36,7 @@ export default (props) => {
     );
 
     const renderRightFragment = () => (
-        <TouchableOpacity onPress={handleCheckInOut}>
+        <TouchableOpacity onPress={handleDone}>
             <InterText flavor="medium" size={17} color={Colors.secondaryLighter}>Done</InterText>
         </TouchableOpacity>
     );
@@ -45,7 +47,8 @@ export default (props) => {
 
             <WebView
                 source={{ uri: params.url }}
-                onLoad={() => setLoading(false)}
+                onLoadEnd={() => setLoading(false)}
+                onLoadProgress={() => setLoading(true)}
             />
         </View>
     );

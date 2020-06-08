@@ -36,7 +36,10 @@ export default (props) => {
         {
             id: "open",
             caption: Strings.openURL,
-            onPress: () => alert("hello"),
+            onPress: () => {
+                props.dismissMe();
+                props.navigator.navigate("WebView", { location, id, url, handleCheckInOut: false });
+            },
             icon: <Icon name="arrow-forward" size={Dimens.glyphSize} />
         },
         {
