@@ -56,14 +56,24 @@ const renderListSectionHeader = ({ section: { title, data } }) => (
 export default (props) => {
     const [locationMenuItem, setLocationMenuItem] = useState({ });
     const [locationMenuVisible, setLocationMenuVisible] = useState(false);
+    const dispatch = useDispatch();
 
     const handleLocationMenu = (item) => {
         setLocationMenuItem(item);
         setLocationMenuVisible(true);
     };
 
+    const handleCheckInOut = (item) => {
+        props.navigation.navigate("WebView", {
+            location: item.location,
+            url: item.url,
+            id: item.id,
+            checkedIn: item.checkedIn
+        });
+    }
+
     const renderListItem = ({ item, index, section, separators }) => (
-        <ListItem item={item} onLongPress={() => handleLocationMenu(item)} />
+        <ListItem item={item} onLongPress={() => handleLocationMenu(item)} onPress={() => handleCheckInOut(item)}/>
     );
 
     return (
