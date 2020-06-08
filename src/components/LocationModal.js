@@ -101,7 +101,7 @@ export default (props) => {
 
                     {checkedIn ?
                         <View style={{width: 100, flexDirection: "row", justifyContent: "flex-end"}}>
-                            <InterText flavor="semibold" size={15} color={Colors.secondaryLighter} numberOfLines={1}>{Strings.checkedIn}</InterText>
+                            <Icon name="check" color={Colors.secondaryLighter} size={Dimens.glyphSize} />
                         </View>
                     : null}
                 </View>
