@@ -11,7 +11,7 @@ import {
     PURGE,
     REGISTER
 } from "redux-persist";
-import createSecureStore from "redux-persist-expo-securestore";
+// import createSecureStore from "redux-persist-expo-securestore";
 
 import locationsReducer from "./locations";
 import settingsReducer from "./settings";
@@ -25,47 +25,29 @@ const persistConfig = {
     blacklist: ["scanner"]
 };
 
-const locationsPersistConfig = {
-    key: "locations",
-    storage
-};
-
-const settingsPersistConfig = {
-    key: "settings",
-    storage
-};
-
-// const combinedReducers = combineReducers({
-//     locations: persistReducer(locationsPersistConfig, locationsReducer),
-//     settings: persistReducer(settingsPersistConfig, settingsReducer),
-//     scanner: scannerReducer
-// });
-
-const combinedReducers = combineReducers({
+const reducer = persistReducer(persistConfig, combineReducers({
     locations: locationsReducer,
     settings: settingsReducer,
     scanner: scannerReducer
-});
-
-const reducer = persistReducer(persistConfig, );
+}));
 
 export default () => {
     const store = configureStore({
-        reducer: combinedReducers,
+        reducer,
         middleware: [
-            // ...getDefaultMiddleware({
-            //     serializableCheck: {
-            //         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
-            //     }
-            // }),
-            store => next => action => {
-                console.log(store.getState());
-                console.log(action);
-                return next(action);
-            }
+            ...getDefaultMiddleware({
+                serializableCheck: {
+                    ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+                }
+            }),
+            // store => next => action => {
+            //     console.log(store.getState());
+            //     console.log(action);
+            //     return next(action);
+            // }
         ]
     });
-    const persistor = () => persistStore(store);
+    const persistor = persistStore(store);
 
     return { store, persistor };
 };

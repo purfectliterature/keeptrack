@@ -88,11 +88,9 @@ export default function App() {
         return <AppLoading startAsync={fetchFonts} onFinish={() => setAssetsLoaded(true)} />
     }
 
-    <PersistGate loading={null} persistor={persistor}></PersistGate>
-
     return (
         <Provider store={store}>
-            
+            <PersistGate loading={null} persistor={persistor}>
                 <NavigationContainer>
                     <Tab.Navigator
                         screenOptions={screenOptions}
@@ -104,7 +102,7 @@ export default function App() {
                         <Tab.Screen name="Settings" component={SettingsScreen} />
                     </Tab.Navigator>
                 </NavigationContainer>
-            
+            </PersistGate>
         </Provider>
         
     );
