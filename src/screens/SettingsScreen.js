@@ -25,6 +25,7 @@ const renderListSectionHeader = ({ section: { title } }) => (
 );
 
 export default (props) => {
+    const dispatch = useDispatch();
     const [deleteLocationsPromptVisible, setDeleteLocationsPromptVisible] = useState(false);
 
     const settings = [
@@ -52,12 +53,16 @@ export default (props) => {
             <Prompt
                 visible={deleteLocationsPromptVisible}
                 dismissMe={() => setDeleteLocationsPromptVisible(false)}
-                title="Are you sure?"
-                message="Yeaboi"
-                onYes={() => alert("Yes")}
-                onNo={() => alert("No")}
-                yesCaption="Yes"
-                noCaption="No"
+                title="Sure you want to erase all locations?"
+                message="Once the locations are deleted, they cannot be retrieved ever again."
+                onYes={() => {
+                    dispatch(resetLocations());
+                    setDeleteLocationsPromptVisible(false);
+                }}
+                onNo={() => setDeleteLocationsPromptVisible(false)}
+                yesCaption="Delete"
+                yesColor="red"
+                noCaption="Cancel"
             />
 
             <View style={styles.container}>
