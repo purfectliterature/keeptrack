@@ -30,39 +30,84 @@ export default (props) => {
 
     const settings = [
         {
-            title: "Satu",
+            title: "",
+            data: [
+                {
+                    id: "showIntro",
+                    label: Strings.showIntroductoryMessages,
+                    onPress: () => {}
+                },
+                {
+                    id: "openSafeEntry",
+                    label: Strings.readMoreAboutSafeEntry,
+                    onPress: () => {}
+                }
+            ]
+        },
+        {
+            title: "",
             data: [
                 {
                     id: "resetLocations",
-                    label: "Erase all locations",
+                    label: Strings.eraseAllLocations,
                     onPress: () => setDeleteLocationsPromptVisible(true)
                 },
                 {
                     id: "resetApp",
-                    label: "Reset application state",
+                    label: Strings.resetApplication,
                     onPress: () => alert("helo")
                 },
+            ]
+        },
+        {
+            title: Strings.developerOptions,
+            data: [
+                {
+                    id: "loadDemoData",
+                    label: Strings.loadDemoData,
+                    onPress: () => alert("haha")
+                },
+                {
+                    id: "addCustomLocation",
+                    label: Strings.addCustomLocation,
+                    onPress: () => alert("hahe")
+                }
+            ]
+        },
+        {
+            title: Strings.userTestingOptions,
+            data: [
+                {
+                    id: "feedback",
+                    label: Strings.submitAFeedback,
+                    onPress: () => alert("asjf")
+                },
+                {
+                    id: "emailMe",
+                    label: Strings.emailMe,
+                    onPress: () => {}
+                }
             ]
         }
     ];
 
     return (
         <View style={styles.screen}>
-            <Header title="Settings" />
+            <Header title={Strings.settings} />
 
             <Prompt
                 visible={deleteLocationsPromptVisible}
                 dismissMe={() => setDeleteLocationsPromptVisible(false)}
-                title="Sure you want to erase all locations?"
-                message="Once the locations are deleted, they cannot be retrieved ever again."
+                title={Strings.areYouSureToDeleteAllLOocations}
+                message={Strings.onceDeletedCannotUndo}
                 onYes={() => {
                     dispatch(resetLocations());
                     setDeleteLocationsPromptVisible(false);
                 }}
                 onNo={() => setDeleteLocationsPromptVisible(false)}
-                yesCaption="Delete"
+                yesCaption={Strings.delete}
                 yesColor="red"
-                noCaption="Cancel"
+                noCaption={Strings.cancel}
             />
 
             <View style={styles.container}>
@@ -78,7 +123,11 @@ export default (props) => {
                         )
                     }
                     ListFooterComponent={
-                        <View style={{height: 100}} />
+                        <View style={{height: 100}}>
+                            <InterText flavor="medium" size={14} style={styles.listSectionHeader} color={Colors.grey4}>
+                                {Strings.settingsFooterText}
+                            </InterText>
+                        </View>
                     }
                 />
             </View>

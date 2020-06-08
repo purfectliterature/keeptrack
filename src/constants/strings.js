@@ -17,5 +17,21 @@ export default {
     youNeedToAllowPermission: "You need to grant access to your camera to enable QR code scanning.",
     cannotAccessCamera: "Where's your camera?",
     grantAccess: "Grant access",
-    scanToAddNewLocation: "Scan a SafeEntry QR code to add a new location"
+    scanToAddNewLocation: "Scan a SafeEntry QR code to add a new location",
+    settingsFooterText: "SaveEntry (Preview) version 0.01\n\nMade with ❤️ by Phillmont",
+    showIntroductoryMessages: "Show introductory messages",
+    readMoreAboutSafeEntry: "Read more about SafeEntry",
+    eraseAllLocations: "Erase all locations",
+    resetApplication: "Reset application",
+    loadDemoData: "Load demo locations",
+    addCustomLocation: "Add custom location data",
+    submitAFeedback: "Submit a feedback",
+    emailMe: "Send an email to the author",
+    settings: "Settings",
+    areYouSureToDeleteAllLOocations: "Sure you want to erase all locations?",
+    onceDeletedCannotUndo: "Once the locations are deleted, they cannot be retrieved ever again.",
+    delete: "Delete",
+    cancel: "Cancel",
+    developerOptions: "Developer options",
+    userTestingOptions: "User testing options"
 };
