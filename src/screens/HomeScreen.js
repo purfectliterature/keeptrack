@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Colors from "../constants/colors";
 import Dimens from "../constants/dimens";
 import Strings from "../constants/strings";
-import data from "../constants/demo-data";
 
 import Header from "../components/Header";
 import TextBox from "../components/TextBox";
@@ -16,16 +15,12 @@ import LocationModal from "../components/LocationModal";
 import {
     getCheckedInLocations,
     getPinnedNotCheckedInLocations,
-    getNotPinnedNotCheckedInLocations,
-    addLocation,
-    getLocations
+    getNotPinnedNotCheckedInLocations
 } from "../store/locations";
 
 export default (props) => {
     const [locationMenuItem, setLocationMenuItem] = useState({ });
     const [locationMenuVisible, setLocationMenuVisible] = useState(false);
-
-    const dispatch = useDispatch();
 
     const handleLocationMenu = (item) => {
         setLocationMenuItem(item);
@@ -39,40 +34,6 @@ export default (props) => {
     const renderListItem = ({ item, index, section, separators }) => (
         <ListItem item={item} onLongPress={() => handleLocationMenu(item)} />
     );
-
-    const sectionData = (data) => {
-        const checkedInLocations = data.filter(item => item.checkedIn);
-        const pinnedLocations = data.filter(item => !item.checkedIn).filter(item => item.pinned);
-        const otherLocations = data.filter(item => !item.checkedIn && !item.pinned);
-        const arrayToDisplay = [];
-
-        if (checkedInLocations.length > 0) {
-            arrayToDisplay.push({
-                title: Strings.checkedInPlaces,
-                data: checkedInLocations.sort((a, b) => {
-                    if (a.pinned && b.pinned) return 0;
-                    if (a.pinned && !b.pinned) return -1;
-                    if (!a.pinned && b.pinned) return 1;
-                })
-            });
-        }
-        
-        if (pinnedLocations.length > 0) {
-            arrayToDisplay.push({
-                title: Strings.pinnedLocations,
-                data: pinnedLocations
-            });
-        }
-
-        if (otherLocations.length > 0) {
-            arrayToDisplay.push({
-                title: Strings.yourLocations,
-                data: otherLocations
-            });
-        }
-
-        return arrayToDisplay;
-    };
 
     const fetchLocations = () => {
         const checkedInLocations = useSelector(getCheckedInLocations);
@@ -104,10 +65,6 @@ export default (props) => {
         return arrayToDisplay;
     };
 
-    const addClementiMall = () => {
-        dispatch(addLocation("Clementi Mall Test", "aksfj", false));
-    };
-
     return (
         <View style={styles.screen}>
             <Header title={Strings.appName} />
@@ -120,8 +77,6 @@ export default (props) => {
 
             <View style={styles.container}>
                 <TextBox placeholder={Strings.searchHere} style={styles.searchBox} />
-
-                <Button title="Hello" onPress={addClementiMall} />
 
                 <SectionList
                     sections={fetchLocations()}

@@ -3,12 +3,23 @@ import { StyleSheet, View, Dimensions, FlatList, TouchableHighlight } from "reac
 import Modal, { ModalContent } from "react-native-modals";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import { useDispatch } from "react-redux";
 
 import Colors from "../constants/colors";
 import Dimens from "../constants/dimens";
 import Strings from "../constants/strings";
 
 import InterText from "./InterText";
+
+import {
+    pinLocation,
+    unpinLocation,
+    checkInLocation,
+    checkOutLocation,
+    deleteLocation,
+    renameLocation,
+    updateLocationUrl
+} from "../store/locations";
 
 export default (props) => {
     const { id, location, checkedIn, pinned, lastVisited, url } = props.item;
@@ -37,8 +48,8 @@ export default (props) => {
             toggleCriteria: checkedIn,  // render 1 if false, 2 if true
             caption1: Strings.markCheckedIn,
             caption2: Strings.markCheckedOut,
-            onPress1: () => alert("Check in"),
-            onPress2: () => alert("Check out"),
+            onPress1: () => dispatch(checkInLocation(id)),
+            onPress2: () => dispatch(checkOutLocation(id)),
             icon1: <Icon name="check" size={Dimens.glyphSize} />,
             icon2: <MaterialIcon name="exit-run" size={Dimens.glyphSize} />
         },
@@ -48,8 +59,8 @@ export default (props) => {
             toggleCriteria: pinned, // render 1 if false, 2 if true
             caption1: Strings.pinLocation,
             caption2: Strings.unpinLocation,
-            onPress1: () => alert("pin"),
-            onPress2: () => alert("unpin"),
+            onPress1: () => dispatch(pinLocation(id)),
+            onPress2: () => dispatch(unpinLocation(id)),
             icon1: <MaterialIcon name="pin" size={Dimens.glyphSize} />,
             icon2: <MaterialIcon name="pin-off" size={Dimens.glyphSize} />
         },
@@ -62,7 +73,7 @@ export default (props) => {
         {
             id: "delete",
             caption: Strings.deleteLocation,
-            onPress: () => alert("hello"),
+            onPress: () => dispatch(deleteLocation(id)),
             icon: <Icon name="delete" size={Dimens.glyphSize} color="red" />,
             captionColor: "red"
         }

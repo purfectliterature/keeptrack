@@ -58,10 +58,10 @@ const {
 
 export default slice.reducer;
 
-export const addLocation = (location, url, checkedIn) => locationAdded({
+export const addLocation = (location, url, checkedIn, pinned) => locationAdded({
     location,
     url,
-    pinned: false,
+    pinned,
     checkedIn,
     lastVisited: Date.now()
 });
