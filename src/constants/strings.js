@@ -13,5 +13,8 @@ export default {
     markCheckedIn: "Mark as checked in",
     markCheckedOut: "Mark as checked out",
     pinLocation: "Pin location",
-    unpinLocation: "Unpin location"
+    unpinLocation: "Unpin location",
+    youNeedToAllowPermission: "You need to grant access to your camera to enable QR code scanning.",
+    cannotAccessCamera: "Where's your camera?",
+    grantAccess: "Grant access"
 };
