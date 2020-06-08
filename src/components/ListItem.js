@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, TouchableHighlight } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import Octicon from "react-native-vector-icons/Octicons";
 import moment from "moment";
 
 import Colors from "../constants/colors";
@@ -41,7 +42,10 @@ export default (props) => {
             onLongPress={props.onLongPress}
         ><View style={styles.listItem}>
             <View style={styles.leftFragment}>
-                <InterText flavor="medium" size={17} numberOfLines={1}>{location}</InterText>
+                <View style={{flexDirection: "row", width: "100%"}}>
+                    <InterText flavor="medium" size={17} numberOfLines={1} style={{flex: 1}}>{location}</InterText>
+                    {pinned ? <Octicon name="pin" size={20} color={Colors.grey3} style={{marginLeft: 8}} /> : null}
+                </View>
                 {renderSubcaption()}
             </View>
 
