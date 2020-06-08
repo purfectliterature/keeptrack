@@ -38,7 +38,11 @@ export default (props) => {
         if (checkedInLocations.length > 0) {
             arrayToDisplay.push({
                 title: Strings.checkedInPlaces,
-                data: checkedInLocations
+                data: checkedInLocations.sort((a, b) => {
+                    if (a.pinned && b.pinned) return 0;
+                    if (a.pinned && !b.pinned) return -1;
+                    if (!a.pinned && b.pinned) return 1;
+                })
             });
         }
         
