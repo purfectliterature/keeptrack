@@ -8,5 +8,7 @@ export default {
     openURL: "Open SafeEntry",
     rescanQR: "Rescan QR code",
     rename: "Rename",
-    deleteLocation: "Delete location"
+    deleteLocation: "Delete location",
+    markCheckedIn: "Mark as checked in",
+    markCheckedOut: "Mark as checked out"
 };

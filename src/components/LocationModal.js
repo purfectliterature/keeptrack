@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Dimensions, FlatList, TouchableHighlight } from "react-native";
 import Modal, { ModalContent } from "react-native-modals";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import Colors from "../constants/colors";
 import Dimens from "../constants/dimens";
@@ -26,6 +27,16 @@ export default (props) => {
             icon: <Icon name="filter-center-focus" size={Dimens.glyphSize} />
         },
         {
+            id: "mark",
+            toggled: true,
+            caption1: Strings.markCheckedIn,
+            caption2: Strings.markCheckedOut,
+            onPress1: () => alert("Check in"),
+            onPress2: () => alert("Check out"),
+            icon1: <Icon name="check" size={Dimens.glyphSize} />,
+            icon2: <MaterialIcon name="exit-run" size={Dimens.glyphSize} />
+        },
+        {
             id: "rename",
             caption: Strings.rename,
             onPress: () => alert("hello"),
@@ -40,16 +51,44 @@ export default (props) => {
         }
     ];
 
-    const renderMenuItem = ({ item, index, separator }) => (
-        <TouchableHighlight 
-            underlayColor={Colors.black}
-            activeOpacity={0.95}
-            onPress={item.onPress}
-        ><View style={styles.menuItem}>
-            <View style={{width: 50}}>{item.icon}</View>
-            <InterText size={17} numberOfLines={2} color={item.captionColor ? item.captionColor : Colors.black}>{item.caption}</InterText>
-        </View></TouchableHighlight>
-    );
+    const renderMenuItem = ({ item, index, separator }) => {
+        if (item.toggled) {
+            if (checkedIn) {
+                return (
+                    <TouchableHighlight 
+                        underlayColor={Colors.black}
+                        activeOpacity={0.95}
+                        onPress={item.onPress2}
+                    ><View style={styles.menuItem}>
+                        <View style={{width: 50}}>{item.icon2}</View>
+                        <InterText size={17} numberOfLines={2} color={item.captionColor2 ? item.captionColor2 : Colors.black}>{item.caption2}</InterText>
+                    </View></TouchableHighlight>
+                );
+            } else {
+                return (
+                    <TouchableHighlight 
+                        underlayColor={Colors.black}
+                        activeOpacity={0.95}
+                        onPress={item.onPress1}
+                    ><View style={styles.menuItem}>
+                        <View style={{width: 50}}>{item.icon1}</View>
+                        <InterText size={17} numberOfLines={2} color={item.captionColor1 ? item.captionColor1 : Colors.black}>{item.caption1}</InterText>
+                    </View></TouchableHighlight>
+                );
+            }
+        } else {
+            return (
+                <TouchableHighlight 
+                    underlayColor={Colors.black}
+                    activeOpacity={0.95}
+                    onPress={item.onPress}
+                ><View style={styles.menuItem}>
+                    <View style={{width: 50}}>{item.icon}</View>
+                    <InterText size={17} numberOfLines={2} color={item.captionColor ? item.captionColor : Colors.black}>{item.caption}</InterText>
+                </View></TouchableHighlight>
+            );
+        }
+    };
 
     return (
         <Modal
