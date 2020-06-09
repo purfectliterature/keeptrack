@@ -43,6 +43,10 @@ const slice = createSlice({
             delete locations[action.payload.id];
         },
 
+        locationVisited: (locations, action) => {
+            locations[action.payload.id].lastVisited = Date.now();
+        },
+
         locationsReset: (locations, action) => {
             Object.keys(locations).forEach((item, index) => {
                 delete locations[item];
@@ -60,6 +64,7 @@ const {
     locationUrlUpdated,
     locationRenamed,
     locationDeleted,
+    locationVisited,
     locationsReset
 } = slice.actions;
 
@@ -81,6 +86,7 @@ export const checkInLocation = (id) => locationCheckedIn({ id });
 export const checkOutLocation = (id) => locationCheckedOut({ id });
 export const updateLocationUrl = (id, url) => locationUrlUpdated({ id, url });
 export const renameLocation = (id, newName) => locationRenamed({ id, newName });
+export const visitLocation = (id) => locationVisited({ id });
 export const deleteLocation = (id) => locationDeleted({ id });
 export const resetLocations = () => locationsReset();
 
