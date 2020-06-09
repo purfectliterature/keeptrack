@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, ActivityIndicator, Button } from "react-native";
+import { StyleSheet, View, ActivityIndicator, Button, BackHandler } from "react-native";
 import { WebView } from "react-native-webview";
 import { useDispatch } from "react-redux";
+import { useFocusEffect } from "@react-navigation/native";
 
 import Colors from "../constants/colors";
 import Dimens from "../constants/dimens";
@@ -34,6 +35,17 @@ export default (props) => {
         }
         navigation.goBack()
     };
+
+    useFocusEffect(React.useCallback(() => {
+        const onBackPress = () => {
+            handleDone();
+            return true;
+        };
+
+        BackHandler.addEventListener("hardwareBackPress", onBackPress);
+
+        return () => BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+    }), []);
 
     const renderLeftFragment = () => (
         <ActivityIndicator size={Dimens.glyphSize} color={Colors.secondaryLighter} animating={loading} />
