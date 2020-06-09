@@ -49,44 +49,39 @@ export default (props) => {
 
     let webRef = null;
 
-    const injectors = {
-        locationObjectId: "location-text",
+    const injectionConfig = {
+        locationTextObjectId: "location-text",
         locationNameToken: "SVELN",
-        checkInObjectClass: "success-text",
+        checkInObjectClassName: "success-text",
         checkInMessageToken: "SVECI",
         delimiter: "#"
     };
-    
-    const getLocationNameFromWebView = `
-        const wait = () => {
-            window.setTimeout(() => {
-                let element = document.getElementById("${injectors.locationObjectId}");
-                if (element) {
-                    window.ReactNativeWebView.postMessage("${injectors.locationNameToken + injectors.delimiter}" + element.innerHTML);
-                } else {
-                    wait();
-                }
-            }, 100);
-        };
+
+    const injectedGetLocation = `
+        new MutationObserver(mutations => {
+            mutations.forEach(mutation => {
+                if (!mutation.addedNodes) return;
+
+                mutation.addedNodes.forEach(node => {
+                    let locationTextObject = document.getElementById("${injectionConfig.locationTextObjectId}");
+                    if (locationTextObject) window.ReactNativeWebView.postMessage("${injectionConfig.locationNameToken + injectionConfig.delimiter}" + locationTextObject.innerHTML);
+                });
+            });
+        }).observe(document.body, {subtree: true, childList: true});
+    `;
+
+    const injectedGetCheckInOut = `
+        const wait = () => window.setTimeout(() => {
+            let checkInObject = document.getElementsByClassName("${injectionConfig.checkInObjectClassName}");
+            if (checkInObject.length === 1) {
+                window.ReactNativeWebView.postMessage("${injectionConfig.checkInMessageToken + injectionConfig.delimiter}" + checkInObject[0].innerHTML);
+            } else {
+                wait();
+            }
+        }, 100);
 
         wait();
     `;
-
-    const verifyCheckInFromWebView = `
-        const wait = () => {
-            window.setTimeout(() => {
-                let element2 = document.getElementsByClassName("${injectors.checkInObjectClass}");
-                if (element2.length === 1) {
-                    window.ReactNativeWebView.postMessage("${injectors.checkInMessageToken + injectors.delimiter}" + element2[0].innerHTML);
-                } else {
-                    wait();
-                }
-            }, 100);
-        };
-
-        wait();
-    `;
-   
 
     return (
         <View style={styles.screen}>
@@ -96,32 +91,31 @@ export default (props) => {
                 ref={ref => (webRef = ref)}
                 source={{ uri: params.url }}
                 onLoadEnd={() => {
-                    if (locationName === "") {
-                        webRef.injectJavaScript(getLocationNameFromWebView);
-                    }
-
-                    if (checkedIn === null) {
-                        webRef.injectJavaScript(verifyCheckInFromWebView);
-                    }
+                    webRef.injectJavaScript(injectedGetLocation);
                     setLoading(false);
                 }}
                 onLoadProgress={() => setLoading(true)}
-                onNavigationStateChange={(state) => console.log(state.url)}
+                onNavigationStateChange={({ url }) => {
+                    console.log(url);
+                    if (url.includes("/complete/")) webRef.injectJavaScript(injectedGetCheckInOut)
+                }}
                 onMessage={({ nativeEvent: { data }}) => {
-                    const message = data.split(injectors.delimiter);
+                    const message = data.split(injectionConfig.delimiter);
                     const token = message[0];
                     const payload = message[1];
                     switch (token) {
-                        case injectors.locationNameToken:
+                        case injectionConfig.locationNameToken:
                             setLocationName(payload);
                             break;
-                        case injectors.checkInMessageToken:
+                        case injectionConfig.checkInMessageToken:
                             if (payload.includes("in")) {
                                 setCheckedIn(true);
                             } else if (payload.includes("out")) {
                                 setCheckedIn(false);
                             }
                             break;
+                        default:
+                            console.log(data);
                     }
                 }}
             />
