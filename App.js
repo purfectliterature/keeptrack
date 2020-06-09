@@ -9,6 +9,7 @@ import { PersistGate } from "redux-persist/integration/react";
 
 import TabHomeScreen from "./src/screens/TabHomeScreen";
 import WebViewScreen from './src/screens/WebViewScreen';
+import ScanScreen from './src/screens/ScanScreen';
 
 import configureStore from "./src/store/configureStore";
 
@@ -40,6 +41,7 @@ export default function App() {
                     <Stack.Navigator initialRouteName="TabHome" headerMode="none">
                         <Stack.Screen name="TabHome" component={TabHomeScreen} />
                         <Stack.Screen name="WebView" component={WebViewScreen} />
+                        <Stack.Screen name="Scanner" component={ScanScreen} />
                     </Stack.Navigator>
                 </NavigationContainer>
             </PersistGate>

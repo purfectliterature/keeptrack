@@ -7,9 +7,10 @@ import Colors from "../constants/colors";
 import Dimens from "../constants/dimens";
 
 import HomeScreen from '../screens/HomeScreen';
-import ScanScreen from '../screens/ScanScreen';
+import EmptyScreen from '../screens/EmptyScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import InterText from "../components/InterText";
+import CircularButton from "../components/CircularButton";
 
 const Tab = createBottomTabNavigator();
 
@@ -20,9 +21,6 @@ const screenOptions = ({ route }) => ({
         switch (route.name) {
             case "Home":
                 iconName = "format-list-bulleted";
-                break;
-            case "Scan":
-                iconName = "filter-center-focus";
                 break;
             case "Settings":
                 iconName = "settings";
@@ -38,9 +36,6 @@ const screenOptions = ({ route }) => ({
         switch (route.name) {
             case "Home":
                 label = "Locations";
-                break;
-            case "Scan":
-                label = "Scan";
                 break;
             case "Settings":
                 label = "Settings";
@@ -68,7 +63,17 @@ export default (props) => {
             backBehavior="none"
         >
             <Tab.Screen name="Home" component={HomeScreen} />
-            <Tab.Screen name="Scan" component={ScanScreen} />
+            <Tab.Screen
+                name="Scan" 
+                component={EmptyScreen}
+                options={{tabBarButton: () => (
+                    <CircularButton
+                        icon={<Icon name="filter-center-focus" size={40} color={Colors.white} />}
+                        color={Colors.primaryLighter}
+                        onPress={() => props.navigation.navigate("Scanner")}
+                    />
+                )}}
+            />
             <Tab.Screen name="Settings" component={SettingsScreen} />
         </Tab.Navigator>
     );
