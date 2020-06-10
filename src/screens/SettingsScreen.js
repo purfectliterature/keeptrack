@@ -58,12 +58,7 @@ export default (props) => {
                     id: "resetLocations",
                     label: Strings.eraseAllLocations,
                     onPress: () => setDeleteLocationsPromptVisible(true)
-                },
-                {
-                    id: "resetApp",
-                    label: Strings.resetApplication,
-                    onPress: () => alert("helo")
-                },
+                }
             ]
         },
         {
