@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, SectionList, Button } from "react-native";
+import { StyleSheet, View, SectionList, ToastAndroid, Platform } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
@@ -64,6 +64,14 @@ export default (props) => {
     };
 
     const handleCheckInOut = (item) => {
+        if (item.url === undefined || item.url === "") {
+            return (Platform.OS === "android") ? ToastAndroid.show(Strings.warningNoUrl, ToastAndroid.LONG) : null;
+        }
+
+        if (item.id === undefined || item.id === "") {
+            return (Platform.OS === "android") ? ToastAndroid.show(Strings.warningNoId, ToastAndroid.LONG) : null;
+        }
+
         props.navigation.navigate("WebView", {
             method: "list",
             location: item.location,
