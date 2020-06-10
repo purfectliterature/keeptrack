@@ -11,24 +11,20 @@ import {
     PURGE,
     REGISTER
 } from "redux-persist";
-// import createSecureStore from "redux-persist-expo-securestore";
 
 import locationsReducer from "./locations";
 import settingsReducer from "./settings";
-import scannerReducer from "./scanner";
 
 const storage = AsyncStorage;
 
 const persistConfig = {
     key: "root",
-    storage,
-    blacklist: ["scanner"]
+    storage
 };
 
 const reducer = persistReducer(persistConfig, combineReducers({
     locations: locationsReducer,
-    settings: settingsReducer,
-    scanner: scannerReducer
+    settings: settingsReducer
 }));
 
 export default () => {
@@ -39,12 +35,7 @@ export default () => {
                 serializableCheck: {
                     ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
                 }
-            }),
-            // store => next => action => {
-            //     console.log(store.getState());
-            //     console.log(action);
-            //     return next(action);
-            // }
+            })
         ]
     });
     const persistor = persistStore(store);
