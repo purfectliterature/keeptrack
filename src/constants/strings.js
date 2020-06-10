@@ -36,5 +36,6 @@ export default {
     userTestingOptions: "User testing options",
     pointYourCameraToScan: "Point your camera to a SafeEntry QR code",
     warningNoUrl: "This location has no link. Please rescan QR code to update link.",
-    warningNoId: "This location has no id. You shouldn't have seen this error--it's the developer's fault :)"
+    warningNoId: "This location has no id. You shouldn't have seen this error--it's the developer's fault :)",
+    safeEntryLinkUpdate: "'s SafeEntry link has been updated!"
 };

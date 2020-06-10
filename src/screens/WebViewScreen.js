@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, ActivityIndicator, Button, BackHandler } from "react-native";
+import { StyleSheet, View, ActivityIndicator, ToastAndroid, BackHandler, Platform, TouchableOpacity } from "react-native";
 import { WebView } from "react-native-webview";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useFocusEffect } from "@react-navigation/native";
 
 import Colors from "../constants/colors";
@@ -9,12 +9,14 @@ import Dimens from "../constants/dimens";
 
 import Header from "../components/Header";
 import InterText from "../components/InterText";
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import {
     checkInLocation,
     checkOutLocation,
-    visitLocation
+    visitLocation,
+    addLocation,
+    getLocations,
+    updateLocationUrl
 } from "../store/locations";
 
 export default (props) => {
@@ -23,16 +25,47 @@ export default (props) => {
     const [locationName, setLocationName] = useState("");
     const [checkedIn, setCheckedIn] = useState(null);
     const dispatch = useDispatch();
+    const savedLocations = useSelector(getLocations);
+
+    const dispatchCheckInOut = (id) => {
+        if (checkedIn === false) {
+            dispatch(checkOutLocation(id));
+        } else {
+            dispatch(checkInLocation(id));
+        }
+        dispatch(visitLocation(id));
+    };
 
     const handleDone = () => {
-        if (checkedIn !== null) {
-            if (checkedIn === false) {
-                dispatch(checkOutLocation(params.id));
-            } else {
-                dispatch(checkInLocation(params.id));
-            }
-            dispatch(visitLocation(params.id));
+        switch (params.method) {
+            case "list":
+                // require id
+                if (checkedIn !== null) {
+                    dispatchCheckInOut(params.id);
+                }
+                break;
+            case "new":
+                if (checkedIn !== null) {
+                    const locationWithSameUrl = savedLocations.filter(location => location.url === params.url);
+                    if (locationWithSameUrl.length === 1) {
+                        dispatchCheckInOut(locationWithSameUrl[0].id);
+                    } else {
+                        const locationWithSameActualName = savedLocations.filter(location => location.actualName === locationName);
+                        if (locationWithSameActualName.length === 1) {
+                            const locationWithSameActualNameId = locationWithSameActualName[0].id;
+                            dispatch(updateLocationUrl(locationWithSameActualNameId, params.url));
+                            if (Platform.OS === "android") {
+                                ToastAndroid.show(`${params.location ? params.location : locationName}${Strings.safeEntryLinkUpdate}`, ToastAndroid.LONG);
+                            }
+                            dispatchCheckInOut(locationWithSameActualNameId);
+                        } else {
+                            dispatch(addLocation(locationName, params.url, checkedIn, false));
+                        }
+                    }
+                }
+                break;
         }
+
         navigation.goBack()
     };
 
@@ -97,7 +130,7 @@ export default (props) => {
 
     return (
         <View style={styles.screen}>
-            <Header title={locationName} renderRightFragment={renderRightFragment} renderLeftFragment={renderLeftFragment} />
+            <Header title={params.location ? params.location : locationName} renderRightFragment={renderRightFragment} renderLeftFragment={renderLeftFragment} />
 
             <WebView
                 ref={ref => (webRef = ref)}
@@ -117,7 +150,7 @@ export default (props) => {
                     const payload = message[1];
                     switch (token) {
                         case injectionConfig.locationNameToken:
-                            setLocationName(payload);
+                            setLocationName(payload.trim());
                             break;
                         case injectionConfig.checkInMessageToken:
                             if (payload.includes("in")) {

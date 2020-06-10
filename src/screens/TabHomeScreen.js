@@ -70,7 +70,7 @@ export default (props) => {
                     <CircularButton
                         icon={<Icon name="filter-center-focus" size={40} color={Colors.white} />}
                         color={Colors.primaryLighter}
-                        onPress={() => props.navigation.navigate("Scanner")}
+                        onPress={() => props.navigation.navigate("Scanner", { method: "new" })}
                     />
                 )}}
             />

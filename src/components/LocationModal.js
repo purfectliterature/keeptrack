@@ -37,7 +37,7 @@ export default (props) => {
         {
             id: "rescan",
             caption: Strings.rescanQR,
-            onPress: () => alert("hello"),
+            onPress: () => props.onRescanQrCode(id, location),
             icon: <Icon name="filter-center-focus" size={Dimens.glyphSize} />
         },
         {

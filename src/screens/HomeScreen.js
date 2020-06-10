@@ -63,6 +63,15 @@ export default (props) => {
         setLocationMenuVisible(true);
     };
 
+    const handleRescanQrCode = (id, location) => {
+        setLocationMenuVisible(false);
+        props.navigation.navigate("Scanner", {
+            method: "update",
+            id,
+            location
+        });
+    };
+
     const handleCheckInOut = (item) => {
         if (item.url === undefined || item.url === "") {
             return (Platform.OS === "android") ? ToastAndroid.show(Strings.warningNoUrl, ToastAndroid.LONG) : null;
@@ -93,6 +102,7 @@ export default (props) => {
                 item={locationMenuItem}
                 dismissMe={() => setLocationMenuVisible(false)}
                 navigator={props.navigation}
+                onRescanQrCode={handleRescanQrCode}
             />
 
             <View style={styles.container}>
