@@ -123,6 +123,7 @@ export default (props) => {
                     ListHeaderComponent={
                         <TextBox placeholder={Strings.searchHere} style={styles.searchBox} />
                     }
+                    keyboardShouldPersistTaps={true}
                 />
             </View>
         </View>
