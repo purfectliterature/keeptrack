@@ -65,11 +65,10 @@ export default (props) => {
 
     const handleCheckInOut = (item) => {
         props.navigation.navigate("WebView", {
+            method: "list",
             location: item.location,
             url: item.url,
-            id: item.id,
-            checkedIn: item.checkedIn,
-            handleCheckInOut: true
+            id: item.id
         });
     }
 
