@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
+import moment from "moment";
 
 const generateId = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
 
@@ -102,7 +103,7 @@ export const getLocations = createSelector(
 export const getCheckedInLocations = createSelector(
     state => state.locations,
     locations => Object.values(locations).filter(location => location.checkedIn).sort((a, b) => {
-        if (a.pinned && b.pinned) return 0;
+        if (a.pinned === b.pinned) return moment(b.lastVisited).diff(moment(a.lastVisited));
         if (a.pinned && !b.pinned) return -1;
         if (!a.pinned && b.pinned) return 1;
     })
@@ -111,9 +112,11 @@ export const getCheckedInLocations = createSelector(
 export const getPinnedNotCheckedInLocations = createSelector(
     state => state.locations,
     locations => Object.values(locations).filter(location => location.pinned && !location.checkedIn)
+        .sort((a, b) => moment(b.lastVisited).diff(moment(a.lastVisited)))
 );
 
 export const getNotPinnedNotCheckedInLocations = createSelector(
     state => state.locations,
     locations => Object.values(locations).filter(location => !location.pinned && !location.checkedIn)
+        .sort((a, b) => moment(b.lastVisited).diff(moment(a.lastVisited)))
 );
