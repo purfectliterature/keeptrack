@@ -123,7 +123,9 @@ export default (props) => {
                     ListHeaderComponent={
                         <TextBox placeholder={Strings.searchHere} style={styles.searchBox} />
                     }
-                    keyboardShouldPersistTaps={true}
+                    keyboardShouldPersistTaps="always"
+                    //keyboardDismissMode="on-drag" does not work as of RN 0.62
+                    onScrollBeginDrag={Keyboard.dismiss}
                 />
             </View>
         </View>
