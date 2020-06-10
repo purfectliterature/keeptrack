@@ -53,7 +53,7 @@ export default (props) => {
 
     const renderRightFragment = () => (
         <TouchableOpacity onPress={handleDone}>
-            <InterText flavor="medium" size={17} color={Colors.secondaryLighter}>
+            <InterText {...(checkedIn === null ? null : {flavor: "semibold"})} size={17} color={checkedIn === null ? Colors.primaryDarker : Colors.secondaryLighter}>
                 {checkedIn === null ? "Cancel" : "Done"}
             </InterText>
         </TouchableOpacity>
