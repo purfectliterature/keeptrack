@@ -151,6 +151,7 @@ export default (props) => {
             width={Dimensions.get("window").width - 70}
             onTouchOutside={props.dismissMe}
             modalStyle={styles.modal}
+            onHardwareBackPress={() => {props.dismissMe(); return true;}}
         >
             <ModalContent style={styles.content}>
                 <FlatList
