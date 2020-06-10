@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, SectionList, TouchableHighlight } from "react-native";
 import { useDispatch } from "react-redux";
+import * as WebBrowser from "expo-web-browser";
 
 import Colors from "../constants/colors";
 import Dimens from "../constants/dimens";
@@ -46,7 +47,7 @@ export default (props) => {
                 {
                     id: "openSafeEntry",
                     label: Strings.readMoreAboutSafeEntry,
-                    onPress: () => {}
+                    onPress: () => WebBrowser.openBrowserAsync("https://support.safeentry.gov.sg/hc/en-us/articles/900000667463-What-is-SafeEntry-")
                 }
             ]
         },
