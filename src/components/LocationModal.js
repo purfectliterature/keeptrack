@@ -24,7 +24,7 @@ import {
 } from "../store/locations";
 
 export default (props) => {
-    const { id, location, checkedIn, pinned, lastVisited, url } = props.item;
+    const { id, location, checkedIn, pinned, lastVisited, url, actualName } = props.item;
     const rootDispatch = useDispatch();
     const dispatch = (actionCreator) => {
         rootDispatch(actionCreator);
@@ -167,6 +167,7 @@ export default (props) => {
                     yesColor={Colors.primary}
                     noCaption={Strings.cancel}
                     placeholder={location}
+                    message={`Location name:\n${actualName}`}
                     onSubmit={handleRenameLocation}
                     onNo={() => setRenameInputPromptVisible(false)}
                 />

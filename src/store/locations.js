@@ -12,7 +12,11 @@ const slice = createSlice({
             while (id in locations) {
                 id = generateId();
             }
-            locations[id] = { id, ...action.payload };
+            locations[id] = {
+                id,
+                ...action.payload,
+                actualName: action.payload.location
+            };
         },
 
         locationPinned: (locations, action) => {
