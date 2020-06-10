@@ -34,7 +34,8 @@ export default (props) => {
         <TouchableHighlight
             underlayColor={Colors.black}
             activeOpacity={0.95}
-            onPress={props.onPress}
+            onPress={() => requestAnimationFrame(props.onPress)}
+            delayLongPress={100}
             onLongPress={props.onLongPress}
         ><View style={styles.listItem}>
             <View style={styles.leftFragment}>

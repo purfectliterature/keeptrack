@@ -93,7 +93,7 @@ export default (props) => {
                     <TouchableHighlight 
                         underlayColor={Colors.black}
                         activeOpacity={0.95}
-                        onPress={item.onPress2}
+                        onPress={() => requestAnimationFrame(item.onPress2)}
                     ><View style={styles.menuItem}>
                         <View style={{width: 50}}>{item.icon2}</View>
                         <InterText size={17} numberOfLines={2} color={item.captionColor2 ? item.captionColor2 : Colors.black}>{item.caption2}</InterText>
@@ -104,7 +104,7 @@ export default (props) => {
                     <TouchableHighlight 
                         underlayColor={Colors.black}
                         activeOpacity={0.95}
-                        onPress={item.onPress1}
+                        onPress={() => requestAnimationFrame(item.onPress1)}
                     ><View style={styles.menuItem}>
                         <View style={{width: 50}}>{item.icon1}</View>
                         <InterText size={17} numberOfLines={2} color={item.captionColor1 ? item.captionColor1 : Colors.black}>{item.caption1}</InterText>
@@ -116,7 +116,7 @@ export default (props) => {
                 <TouchableHighlight 
                     underlayColor={Colors.black}
                     activeOpacity={0.95}
-                    onPress={item.onPress}
+                    onPress={() => requestAnimationFrame(item.onPress)}
                 ><View style={styles.menuItem}>
                     <View style={{width: 50}}>{item.icon}</View>
                     <InterText size={17} numberOfLines={2} color={item.captionColor ? item.captionColor : Colors.black}>{item.caption}</InterText>

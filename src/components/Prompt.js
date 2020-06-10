@@ -37,7 +37,7 @@ export default (props) => {
                     <TouchableHighlight
                         underlayColor={Colors.black}
                         activeOpacity={0.95}
-                        onPress={props.onYes}
+                        onPress={() => requestAnimationFrame(props.onYes)}
                         style={{
                             ...styles.touchableButton,
                             borderBottomLeftRadius: 15,
@@ -55,7 +55,7 @@ export default (props) => {
                         <TouchableHighlight
                             underlayColor={Colors.black}
                             activeOpacity={0.95}
-                            onPress={props.onNo}
+                            onPress={() => requestAnimationFrame(props.onNo)}
                             style={{...styles.touchableButton, borderBottomRightRadius: 15}}
                         ><View style={{...styles.button, borderBottomRightRadius: 15}}>
                             <InterText flavor="medium" size={17} color={props.noColor ? props.noColor : Colors.black}>{props.noCaption}</InterText>

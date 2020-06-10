@@ -17,7 +17,7 @@ import {
 } from "../store/locations";
 
 const renderListItem = ({ item, index, section, separators }) => (
-    <TouchableHighlight activeOpacity={0.95} underlayColor={Colors.black} onPress={item.onPress}><View style={styles.menuItem}>
+    <TouchableHighlight activeOpacity={0.95} underlayColor={Colors.black} onPress={() => requestAnimationFrame(item.onPress)}><View style={styles.menuItem}>
         <InterText size={17} color={item.disabled ? Colors.grey4 : Colors.black} numberOfLines={1}>{item.label}</InterText>
     </View></TouchableHighlight>
 );
