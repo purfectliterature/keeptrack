@@ -51,7 +51,7 @@ export default (props) => {
             ]
         },
         {
-            title: "",
+            title: "Danger zone!",
             data: [
                 {
                     id: "resetLocations",
@@ -77,21 +77,6 @@ export default (props) => {
                     id: "addCustomLocation",
                     label: Strings.addCustomLocation,
                     onPress: () => handleAddCustomLocationData()
-                }
-            ]
-        },
-        {
-            title: Strings.userTestingOptions,
-            data: [
-                {
-                    id: "feedback",
-                    label: Strings.submitAFeedback,
-                    onPress: () => alert("asjf")
-                },
-                {
-                    id: "emailMe",
-                    label: Strings.emailMe,
-                    onPress: () => {}
                 }
             ]
         }
