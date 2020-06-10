@@ -10,6 +10,7 @@ npm-debug.*
 web-build/
 web-report/
 *.xd
+*.ai
 demo-data.js
 
 # macOS
