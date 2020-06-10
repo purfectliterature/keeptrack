@@ -16,9 +16,9 @@ export default (props) => {
 
     const renderSubcaption = () => {
         if (checkedIn) {
-            return <InterText color={Colors.secondaryLighter} size={15} numberOfLines={1}>{Strings.checkedIn}</InterText>
+            return <InterText color={Colors.secondaryLighter} size={15} numberOfLines={1}>{Strings.checkedIn} {moment(lastVisited).format("ddd MMM D, YYYY, H:m")}</InterText>
         } else {
-            return <InterText color={Colors.grey3} size={15} numberOfLines={1}>{`${Strings.lastVisited} ${moment(lastVisited).format("ddd MMM D, YYYY, H:m")}`}</InterText>
+            return <InterText color={Colors.grey3} size={15} numberOfLines={1}>{Strings.lastVisited} {moment(lastVisited).format("ddd MMM D, YYYY, H:m")}</InterText>
         }
     };
     
