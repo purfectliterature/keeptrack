@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, SectionList, ToastAndroid, Platform } from "react-native";
+import { StyleSheet, View, SectionList, ToastAndroid, Platform, Keyboard } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
@@ -16,38 +16,9 @@ import LocationModal from "../components/LocationModal";
 import {
     getCheckedInLocations,
     getPinnedNotCheckedInLocations,
-    getNotPinnedNotCheckedInLocations
+    getNotPinnedNotCheckedInLocations,
+    getLocations
 } from "../store/locations";
-
-const fetchLocations = () => {
-    const checkedInLocations = useSelector(getCheckedInLocations);
-    const pinnedLocations = useSelector(getPinnedNotCheckedInLocations);
-    const otherLocations = useSelector(getNotPinnedNotCheckedInLocations);
-    const arrayToDisplay = [];
-
-    if (checkedInLocations.length > 0) {
-        arrayToDisplay.push({
-            title: Strings.checkedInPlaces,
-            data: checkedInLocations
-        });
-    }
-    
-    if (pinnedLocations.length > 0) {
-        arrayToDisplay.push({
-            title: Strings.pinnedLocations,
-            data: pinnedLocations
-        });
-    }
-
-    if (otherLocations.length > 0) {
-        arrayToDisplay.push({
-            title: Strings.yourLocations,
-            data: otherLocations
-        });
-    }
-
-    return arrayToDisplay;
-};
 
 const renderListSectionHeader = ({ section: { title, data } }) => (
     <InterText flavor="semibold" size={15} style={styles.listSectionHeader}>{`${title} (${data.length})`}</InterText>
@@ -56,7 +27,48 @@ const renderListSectionHeader = ({ section: { title, data } }) => (
 export default (props) => {
     const [locationMenuItem, setLocationMenuItem] = useState({ });
     const [locationMenuVisible, setLocationMenuVisible] = useState(false);
+    const [searchKeyword, setSearchKeyword] = useState("");
+    const savedLocations = useSelector(getLocations);
+    const checkedInLocations = useSelector(getCheckedInLocations);
+    const pinnedLocations = useSelector(getPinnedNotCheckedInLocations);
+    const otherLocations = useSelector(getNotPinnedNotCheckedInLocations);
     const dispatch = useDispatch();
+
+    const fetchDisplayedLocations = () => {
+        const arrayToDisplay = [];
+    
+        if (checkedInLocations.length > 0) {
+            arrayToDisplay.push({
+                title: Strings.checkedInPlaces,
+                data: checkedInLocations
+            });
+        }
+        
+        if (pinnedLocations.length > 0) {
+            arrayToDisplay.push({
+                title: Strings.pinnedLocations,
+                data: pinnedLocations
+            });
+        }
+    
+        if (otherLocations.length > 0) {
+            arrayToDisplay.push({
+                title: Strings.yourLocations,
+                data: otherLocations
+            });
+        }
+    
+        return arrayToDisplay;
+    };
+
+    const fetchLocations = () => {
+        if (searchKeyword === "") return fetchDisplayedLocations();
+
+        return [{
+            title: "Search results",
+            data: savedLocations.filter(location => location.location.toLowerCase().includes(searchKeyword.toLowerCase()))
+        }];
+    }
 
     const handleLocationMenu = (item) => {
         setLocationMenuItem(item);
@@ -121,7 +133,12 @@ export default (props) => {
                         <View style={{height: 100}} />
                     }
                     ListHeaderComponent={
-                        <TextBox placeholder={Strings.searchHere} style={styles.searchBox} />
+                        <TextBox
+                            placeholder={Strings.searchHere}
+                            style={styles.searchBox}
+                            returnKeyType="search"
+                            onChangeText={(text) => setSearchKeyword(text)}
+                        />
                     }
                     keyboardShouldPersistTaps="always"
                     //keyboardDismissMode="on-drag" does not work as of RN 0.62
