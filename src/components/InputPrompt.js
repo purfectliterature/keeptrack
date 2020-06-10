@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Dimensions, TouchableHighlight } from "react-native";
+import { StyleSheet, View, Dimensions, TouchableHighlight, Keyboard } from "react-native";
 import Modal, { ModalContent, SlideAnimation } from "react-native-modals";
 
 import Colors from "../constants/colors";
@@ -27,6 +27,7 @@ export default (props) => {
                 slideFrom: "top",
                 useNativeDriver: true
             })}
+            onHardwareBackPress={() => {props.dismissMe(); return true;}}
         >
             <ModalContent style={styles.content}>
                 <View style={styles.message}>

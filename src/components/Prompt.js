@@ -24,6 +24,7 @@ export default (props) => {
                 slideFrom: "top",
                 useNativeDriver: true
             })}
+            onHardwareBackPress={() => {props.dismissMe(); return true;}}
         >
             <ModalContent style={styles.content}>
                 {props.message ? 
