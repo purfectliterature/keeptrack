@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Dimensions, FlatList, TouchableHighlight } from "react-native";
-import Modal, { ModalContent } from "react-native-modals";
+import Modal, { ModalContent, FadeAnimation } from "react-native-modals";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useDispatch } from "react-redux";
@@ -152,6 +152,11 @@ export default (props) => {
             onTouchOutside={props.dismissMe}
             modalStyle={styles.modal}
             onHardwareBackPress={() => {props.dismissMe(); return true;}}
+            modalAnimation={new FadeAnimation({
+                initialValue: 10,
+                animationDuration: 50,
+                useNativeDriver: true
+            })}
         >
             <ModalContent style={styles.content}>
                 <FlatList
