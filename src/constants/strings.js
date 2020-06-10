@@ -6,7 +6,7 @@ export default {
     lastVisited: "Last visited",
     pinnedLocations: "Pinned locations",
     yourLocations: "Your locations",
-    openURL: "Open SafeEntry",
+    openURL: "Open SafeEntry externally",
     rescanQR: "Rescan QR code",
     rename: "Rename",
     deleteLocation: "Delete location",
@@ -33,5 +33,6 @@ export default {
     delete: "Delete",
     cancel: "Cancel",
     developerOptions: "Developer options",
-    userTestingOptions: "User testing options"
+    userTestingOptions: "User testing options",
+    pointYourCameraToScan: "Point your camera to a SafeEntry QR code"
 };

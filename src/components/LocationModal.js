@@ -4,6 +4,7 @@ import Modal, { ModalContent } from "react-native-modals";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useDispatch } from "react-redux";
+import * as WebBrowser from "expo-web-browser";
 
 import Colors from "../constants/colors";
 import Dimens from "../constants/dimens";
@@ -33,15 +34,6 @@ export default (props) => {
     const [renameInputPromptVisible, setRenameInputPromptVisible] = useState(false);
 
     const menu = [
-        {
-            id: "open",
-            caption: Strings.openURL,
-            onPress: () => {
-                props.dismissMe();
-                props.navigator.navigate("WebView", { location, id, url, handleCheckInOut: false });
-            },
-            icon: <Icon name="arrow-forward" size={Dimens.glyphSize} />
-        },
         {
             id: "rescan",
             caption: Strings.rescanQR,
@@ -75,6 +67,15 @@ export default (props) => {
             caption: Strings.rename,
             onPress: () => setRenameInputPromptVisible(true),
             icon: <Icon name="create" size={Dimens.glyphSize} />
+        },
+        {
+            id: "open",
+            caption: Strings.openURL,
+            onPress: () => {
+                props.dismissMe();
+                WebBrowser.openBrowserAsync(url);
+            },
+            icon: <Icon name="open-in-new" size={Dimens.glyphSize} />
         },
         {
             id: "delete",
