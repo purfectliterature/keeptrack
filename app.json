@@ -22,7 +22,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.purfectliterature.saveentry"
+    },
+    "android": {
+      "package": "com.purfectliterature.saveentry"
     }
   }
 }
