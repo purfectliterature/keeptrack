@@ -17,6 +17,7 @@ __pycache__
 urls.txt
 *.mp4
 *.py
+package-lock.json
 
 # macOS
 .DS_Store
