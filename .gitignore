@@ -5,6 +5,7 @@ npm-debug.*
 *.p8
 *.p12
 *.key
+*.pem
 *.mobileprovision
 *.orig.*
 web-build/
@@ -12,6 +13,10 @@ web-report/
 *.xd
 *.ai
 demo-data.js
+__pycache__
+urls.txt
+*.mp4
+*.py
 
 # macOS
 .DS_Store
