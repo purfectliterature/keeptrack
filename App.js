@@ -16,7 +16,6 @@ import configureStore from "./src/store/configureStore";
 const fetchFonts = () => {
     return Font.loadAsync({
         "inter": require("./assets/fonts/Inter-Regular.otf"),
-        "inter-bold": require("./assets/fonts/Inter-Bold.otf"),
         "inter-semibold": require("./assets/fonts/Inter-SemiBold.otf"),
         "inter-medium": require("./assets/fonts/Inter-Medium.otf")
     });
