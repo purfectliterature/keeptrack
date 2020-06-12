@@ -18,6 +18,8 @@ urls.txt
 *.mp4
 *.py
 package-lock.json
+*.apk
+.expect
 
 # macOS
 .DS_Store
