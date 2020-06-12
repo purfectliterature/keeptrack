@@ -9,5 +9,7 @@ export default {
     grey1: "#F0F0F0",
     grey2: "#DADADA",
     grey3: "#A9A9A9",
-    grey4: "#8B8B8B"
+    grey4: "#8B8B8B",
+    safeEntryGreen: "#1EAF71",
+    safeEntryBlue: "#0070E0"
 };

@@ -16,7 +16,7 @@ export default (props) => {
 
     const renderSubcaption = () => {
         if (checkedIn) {
-            return <InterText color={Colors.secondaryLighter} size={15} numberOfLines={1}>{Strings.checkedIn} {moment(lastVisited).format("ddd MMM D, YYYY, H:m")}</InterText>
+            return <InterText color={Colors.safeEntryGreen} size={15} numberOfLines={1}>{Strings.checkedIn} {moment(lastVisited).format("ddd MMM D, YYYY, H:m")}</InterText>
         } else {
             return <InterText color={Colors.grey3} size={15} numberOfLines={1}>{Strings.lastVisited} {moment(lastVisited).format("ddd MMM D, YYYY, H:m")}</InterText>
         }
@@ -24,7 +24,7 @@ export default (props) => {
     
     const renderIcon = () => {
         if (checkedIn) {
-            return <MaterialIcon name="exit-run" size={Dimens.glyphSize} color={Colors.secondaryLighter} />
+            return <MaterialIcon name="exit-run" size={Dimens.glyphSize} color={Colors.safeEntryBlue} />
         } else {
             return <Icon name="arrow-forward" size={Dimens.glyphSize} color={Colors.primaryLighter} />
         }
