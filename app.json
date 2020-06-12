@@ -26,7 +26,10 @@
       "bundleIdentifier": "com.purfectliterature.saveentry"
     },
     "android": {
-      "package": "com.purfectliterature.saveentry"
+      "package": "com.purfectliterature.saveentry",
+      "permissions": [
+        "CAMERA"
+      ]
     }
   }
 }
