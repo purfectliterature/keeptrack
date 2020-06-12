@@ -144,7 +144,7 @@ export default (props) => {
                 }}
                 onLoadProgress={() => setLoading(true)}
                 onNavigationStateChange={({ url }) => {
-                    console.log(url);
+                    // console.log(url);
                     if (url.includes("/complete/")) webRef.injectJavaScript(injectedGetCheckInOut)
                 }}
                 onMessage={({ nativeEvent: { data }}) => {
@@ -162,8 +162,8 @@ export default (props) => {
                                 setCheckedIn(false);
                             }
                             break;
-                        default:
-                            console.log(data);
+                        // default:
+                        //     console.log(data);
                     }
                 }}
             />
