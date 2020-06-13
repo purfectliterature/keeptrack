@@ -105,7 +105,7 @@ export default (props) => {
         delimiter: "#"
     };
 
-    const injectedGetLocation = `
+    const injectedJavaScript = `
         new MutationObserver(mutations => {
             mutations.forEach(mutation => {
                 if (!mutation.addedNodes) return;
@@ -113,22 +113,11 @@ export default (props) => {
                 mutation.addedNodes.forEach(node => {
                     let locationTextObject = document.getElementById("${injectionConfig.locationTextObjectId}");
                     if (locationTextObject) window.ReactNativeWebView.postMessage("${injectionConfig.locationNameToken + injectionConfig.delimiter}" + locationTextObject.innerHTML);
+
+                    if (node.innerHTML.includes("success-text")) window.ReactNativeWebView.postMessage("${injectionConfig.checkInMessageToken + injectionConfig.delimiter}" + document.getElementsByClassName("${injectionConfig.checkInObjectClassName}")[0].innerHTML);
                 });
             });
         }).observe(document.body, {subtree: true, childList: true});
-    `;
-
-    const injectedGetCheckInOut = `
-        const wait = () => window.setTimeout(() => {
-            let checkInObject = document.getElementsByClassName("${injectionConfig.checkInObjectClassName}");
-            if (checkInObject.length === 1) {
-                window.ReactNativeWebView.postMessage("${injectionConfig.checkInMessageToken + injectionConfig.delimiter}" + checkInObject[0].innerHTML);
-            } else {
-                wait();
-            }
-        }, 100);
-
-        wait();
     `;
 
     return (
@@ -138,15 +127,11 @@ export default (props) => {
             <WebView
                 ref={ref => (webRef = ref)}
                 source={{ uri: params.url }}
-                onLoadEnd={() => {
-                    webRef.injectJavaScript(injectedGetLocation);
+                onLoad={() => {
+                    webRef.injectJavaScript(injectedJavaScript);
                     setLoading(false);
                 }}
                 onLoadProgress={() => setLoading(true)}
-                onNavigationStateChange={({ url }) => {
-                    // console.log(url);
-                    if (url.includes("/complete/")) webRef.injectJavaScript(injectedGetCheckInOut)
-                }}
                 onMessage={({ nativeEvent: { data }}) => {
                     const message = data.split(injectionConfig.delimiter);
                     const token = message[0];
@@ -162,8 +147,8 @@ export default (props) => {
                                 setCheckedIn(false);
                             }
                             break;
-                        // default:
-                        //     console.log(data);
+                        default:
+                            console.log(data);
                     }
                 }}
             />
