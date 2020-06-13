@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, SectionList, ToastAndroid, Platform, Keyboard } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 import Colors from "../constants/colors";
-import Dimens from "../constants/dimens";
 import Strings from "../constants/strings";
 
 import Header from "../components/Header";
@@ -32,7 +31,6 @@ export default (props) => {
     const checkedInLocations = useSelector(getCheckedInLocations);
     const pinnedLocations = useSelector(getPinnedNotCheckedInLocations);
     const otherLocations = useSelector(getNotPinnedNotCheckedInLocations);
-    const dispatch = useDispatch();
 
     const fetchDisplayedLocations = () => {
         const arrayToDisplay = [];
@@ -62,12 +60,14 @@ export default (props) => {
     };
 
     const fetchLocations = () => {
-        if (searchKeyword === "") return fetchDisplayedLocations();
-
-        return [{
-            title: "Search results",
-            data: savedLocations.filter(location => location.location.toLowerCase().includes(searchKeyword.toLowerCase()))
-        }];
+        if (searchKeyword === "") {
+            return fetchDisplayedLocations();
+        } else {
+            return [{
+                title: "Search results",
+                data: savedLocations.filter(location => location.location.toLowerCase().includes(searchKeyword.toLowerCase()))
+            }];
+        }
     }
 
     const handleLocationMenu = (item) => {

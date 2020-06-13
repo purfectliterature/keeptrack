@@ -25,13 +25,12 @@ import {
 
 export default (props) => {
     const { id, location, checkedIn, pinned, lastVisited, url, actualName } = props.item;
+    const [renameInputPromptVisible, setRenameInputPromptVisible] = useState(false);
     const rootDispatch = useDispatch();
     const dispatch = (actionCreator) => {
         rootDispatch(actionCreator);
         props.dismissMe();
     }
-
-    const [renameInputPromptVisible, setRenameInputPromptVisible] = useState(false);
 
     const menu = [
         {
