@@ -20,6 +20,7 @@ urls.txt
 package-lock.json
 *.apk
 .expect
+dist
 
 # macOS
 .DS_Store
