@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, SectionList, TouchableHighlight } from "react-native";
 import { useDispatch } from "react-redux";
 import * as WebBrowser from "expo-web-browser";
+import Constants from "expo-constants";
 
 import Colors from "../constants/colors";
 import Dimens from "../constants/dimens";
@@ -169,6 +170,7 @@ export default (props) => {
                     ListFooterComponent={
                         <View style={{height: 100}}>
                             <InterText flavor="medium" size={14} style={styles.listSectionHeader} color={Colors.grey4}>
+                                {`${Constants.manifest.name} version ${Constants.manifest.version}\n\n`}
                                 {Strings.settingsFooterText}
                             </InterText>
                         </View>

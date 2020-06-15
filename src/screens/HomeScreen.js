@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, SectionList, ToastAndroid, Platform, Keyboard } from "react-native";
 import { useSelector } from "react-redux";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import Constants from "expo-constants";
 
 import Colors from "../constants/colors";
 import Strings from "../constants/strings";
@@ -107,7 +108,7 @@ export default (props) => {
 
     return (
         <View style={styles.screen}>
-            <Header title={Strings.appName} />
+            <Header title={Constants.manifest.name} />
 
             <LocationModal
                 visible={locationMenuVisible}

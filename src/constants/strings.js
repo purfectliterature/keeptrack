@@ -1,5 +1,4 @@
 export default {
-    appName: "KeepTrack",
     searchHere: "Search here",
     checkedIn: "Checked in",
     checkedInPlaces: "Checked in places",
@@ -18,7 +17,7 @@ export default {
     cannotAccessCamera: "Where's your camera?",
     grantAccess: "Grant access",
     scanToAddNewLocation: "Scan a SafeEntry QR code to add a new location",
-    settingsFooterText: "KeepTrack (Preview) version 0.01\n\nMade with ❤️ by Phillmont",
+    settingsFooterText: "Made with ❤️ by Phillmont",
     showIntroductoryMessages: "Show introductory messages",
     readMoreAboutSafeEntry: "Read more about SafeEntry",
     eraseAllLocations: "Erase all locations",
