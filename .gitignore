@@ -21,6 +21,7 @@ package-lock.json
 *.apk
 .expect
 dist
+_untracked
 
 # macOS
 .DS_Store
