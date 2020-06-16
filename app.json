@@ -29,7 +29,12 @@
       "package": "com.purfectliterature.keeptrack",
       "permissions": [
         "CAMERA"
-      ]
+      ],
+      "adaptiveIcon": {
+        "backgroundColor": "#ffffff",
+        "foregroundImage": "./assets/icon-adaptive-fg.png"
+      },
+      "icon": "./assets/icon-legacy.png"
     }
   }
 }
