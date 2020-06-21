@@ -40,7 +40,7 @@ export default (props) => {
     const handleBarCodeScan = ({ type, data }) => {
         setScanned(true);
         
-        if (data.includes("temperaturepass.ndi-api.gov.sg") || data.includes("safeentry-qr.gov.sg")) {
+        if (data.includes("temperaturepass.ndi-api.gov.sg") || data.includes("safeentry-qr.gov.sg") || data.toLowerCase().includes("safeentry")) {
             navigation.goBack();
             switch (params.method) {
                 case "new":

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, ActivityIndicator, ToastAndroid, BackHandler, Platform, TouchableOpacity } from "react-native";
+import { StyleSheet, View, ActivityIndicator, ToastAndroid, BackHandler, Platform, TouchableOpacity, Button } from "react-native";
 import { WebView } from "react-native-webview";
 import { useDispatch, useSelector } from "react-redux";
 import { useFocusEffect } from "@react-navigation/native";
@@ -36,7 +36,7 @@ export default (props) => {
         dispatch(visitLocation(id));
     };
 
-    const handleDone = () => {
+    const handleDone = () => {        
         switch (params.method) {
             case "list":
                 // require id
@@ -101,6 +101,7 @@ export default (props) => {
         locationTextObjectId: "location-text",
         locationNameToken: "SVELN",
         checkInObjectClassName: "success-text",
+        buildingNameObjectClassName: "building-name",
         checkInMessageToken: "SVECI",
         delimiter: "#"
     };
@@ -115,6 +116,7 @@ export default (props) => {
                     if (locationTextObject) window.ReactNativeWebView.postMessage("${injectionConfig.locationNameToken + injectionConfig.delimiter}" + locationTextObject.innerHTML);
 
                     if (node.innerHTML.includes("success-text")) window.ReactNativeWebView.postMessage("${injectionConfig.checkInMessageToken + injectionConfig.delimiter}" + document.getElementsByClassName("${injectionConfig.checkInObjectClassName}")[0].innerHTML);
+                    if (node.innerHTML.includes("building-name")) window.ReactNativeWebView.postMessage("${injectionConfig.locationNameToken + injectionConfig.delimiter}" + document.getElementsByClassName("${injectionConfig.buildingNameObjectClassName}")[0].innerHTML);
                 });
             });
         }).observe(document.body, {subtree: true, childList: true});
@@ -127,7 +129,7 @@ export default (props) => {
             <WebView
                 ref={ref => (webRef = ref)}
                 source={{ uri: params.url }}
-                onLoad={() => {
+                onLoadEnd={() => {
                     webRef.injectJavaScript(injectedJavaScript);
                     setLoading(false);
                 }}
