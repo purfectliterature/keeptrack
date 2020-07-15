@@ -102,9 +102,14 @@ export default (props) => {
         locationNameToken: "SVELN",
         checkInObjectClassName: "success-text",
         buildingNameObjectClassName: "building-name",
+        safeEntryIconClassName: "safe-entry-icon",
         checkInMessageToken: "SVECI",
         delimiter: "#"
     };
+
+    // as of 1.0.5
+    // if (node.innerHTML.includes("success-text")) window.ReactNativeWebView.postMessage("${injectionConfig.checkInMessageToken + injectionConfig.delimiter}" + document.getElementsByClassName("${injectionConfig.checkInObjectClassName}")[0].innerHTML);
+    // if (node.innerHTML.includes("building-name")) window.ReactNativeWebView.postMessage("${injectionConfig.locationNameToken + injectionConfig.delimiter}" + document.getElementsByClassName("${injectionConfig.buildingNameObjectClassName}")[0].innerHTML);
 
     const injectedJavaScript = `
         new MutationObserver(mutations => {
@@ -115,8 +120,8 @@ export default (props) => {
                     let locationTextObject = document.getElementById("${injectionConfig.locationTextObjectId}");
                     if (locationTextObject) window.ReactNativeWebView.postMessage("${injectionConfig.locationNameToken + injectionConfig.delimiter}" + locationTextObject.innerHTML);
 
-                    if (node.innerHTML.includes("success-text")) window.ReactNativeWebView.postMessage("${injectionConfig.checkInMessageToken + injectionConfig.delimiter}" + document.getElementsByClassName("${injectionConfig.checkInObjectClassName}")[0].innerHTML);
-                    if (node.innerHTML.includes("building-name")) window.ReactNativeWebView.postMessage("${injectionConfig.locationNameToken + injectionConfig.delimiter}" + document.getElementsByClassName("${injectionConfig.buildingNameObjectClassName}")[0].innerHTML);
+                    if (node.innerHTML.includes("${injectionConfig.safeEntryIconClassName}")) window.ReactNativeWebView.postMessage("${injectionConfig.checkInMessageToken + injectionConfig.delimiter}" + document.getElementsByClassName("${injectionConfig.safeEntryIconClassName}")[0].src);
+                    if (node.innerHTML.includes("${injectionConfig.buildingNameObjectClassName}")) window.ReactNativeWebView.postMessage("${injectionConfig.locationNameToken + injectionConfig.delimiter}" + document.getElementsByClassName("${injectionConfig.buildingNameObjectClassName}")[0].innerText);
                 });
             });
         }).observe(document.body, {subtree: true, childList: true});
